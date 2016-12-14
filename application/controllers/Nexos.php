@@ -23,6 +23,11 @@ class Nexos extends CI_Controller {
 	 */
 	public function index($article='',$id=''){
 		
+		 echo "<pre>";	
+		ini_set('display_errors', '1');		
+		error_reporting(E_ALL ^ E_NOTICE);
+		
+		
 		if($article=='' && $id==''){
 			$this->load->view('inicio',
 						 	array(

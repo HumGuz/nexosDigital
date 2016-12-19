@@ -44,5 +44,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	</div>
 		<?php  include_once 'includes/footer.php'; ?>
 		<?php include_once 'includes/footer-scripts.php'; ?>
+		
+		<?php include_once 'admin/login.php'; ?>
+		
 </body>
 </html>

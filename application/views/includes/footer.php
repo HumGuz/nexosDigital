@@ -37,7 +37,10 @@
 		<div class="footer-bottom">
 			<div class="container">
 				<div class="copyrights">
-					<p>Konstructs © 2015 All rights reserved | Template by  <a href="http://w3layouts.com">  W3layouts</a></p>
+					<p>
+						Konstructs © 2015 All rights reserved | Template by  <a href="http://w3layouts.com">  W3layouts</a>
+						<a href="#" class="pull-right" data-toggle="modal" data-target=".forget-modal"> <span class="glyphicon glyphicon-log-in" data-toggle="tooltip" data-placement="top" title="Acceso del administrador"> </span> </a>
+					</p>
 				</div>
 			</div>
 		</div>

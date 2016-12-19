@@ -22,24 +22,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<?php include_once 'includes/menu.php'; ?>
 	<div class="container">
 		<div class="content">
-			<div class="col-md-7 content-left">
-				<?php echo $recent; ?>
+			<!--404-->
+			<div class="error">
+				<div class="error-head">
+					<h1>4<span>0</span>4</h1>
+					<h2>Perdona, la pagina solicitada no ha sido encontrada...!</h2>
+					<a class="hvr-bounce-to-left button" href="<?php echo base_url(); ?>">ir al inicio</a>
+				 </div>
 			</div>
-			<div class="col-md-5 content-right">
-				<div class="content-right-top">
-					<h5 class="head">Populares</h5>	
-					<?php echo $popular; ?>
-				</div>
-				<div class="editors-pic-grids">
-						<h5>Selección del editor</h5>
-					<?php echo $editorsPick; ?>
-				</div>
-			</div>
-			<div class="clearfix"></div>
-			 <div class="features">
-				<h5>Noticias destacadas</h5>
-				<h2>Nokia offering customers printable STL phone cases for the Lumia 820</h2>
-			</div> 						
 		</div>
 	</div>
 		<?php  include_once 'includes/footer.php'; ?>

@@ -9,7 +9,7 @@ class Comments_model extends CI_Model {
 			return '
 					<div class="comments-main">
 								<div class="col-md-3 cmts-main-left">
-									<img src="images/avatar.jpg" alt="">
+									<img src="'.base_url().'application/views/images/avatar.jpg" alt="">
 								</div>
 								<div class="col-md-9 cmts-main-right">
 									<h5>TOM BROWN</h5>
@@ -32,7 +32,7 @@ class Comments_model extends CI_Model {
 							</div>
 							<div class="comments-main">
 								<div class="col-md-3 cmts-main-left">
-									<img src="images/avatar.jpg" alt="">
+									<img src="'.base_url().'application/views/images/avatar.jpg" alt="">
 								</div>
 								<div class="col-md-9 cmts-main-right">
 									<h5>MARK JOHNSON</h5>

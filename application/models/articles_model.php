@@ -1,7 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Articles_model extends CI_Model {
-	
+		public function __construct(){
+	    	parent::__construct();
+			$this->load->library('app');
+	    }	
 		function getArticle(){
 			return '
 			
@@ -101,53 +104,28 @@ class Articles_model extends CI_Model {
 	   }
 
  		function getEditorsPick(){
-	   		return '
-	   		
-					<div class="editors-pic">
-						<div class="e-pic">
-							<a href="single.html"><img src="'.base_url().'application/views/images/ep1.jpg" alt="" /></a>
-						</div>
-						<div class="e-pic-info">
-							<a href="single.html">MarkerBot Announces the ‘Replicator 2x’  For the Experimental</a>
-							<span></span>
-							<label>2 Days Ago</label>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="editors-pic">
-						<div class="e-pic">
-							<a href="single.html"><img src="'.base_url().'application/views/images/ep2.jpg" alt="" /></a>
-						</div>
-						<div class="e-pic-info">
-							<a href="single.html">3D Printed Record – the next revolution?</a>
-							<span></span>
-							<label>2 Days Ago</label>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="editors-pic">
-						<div class="e-pic">
-							<a href="single.html"><img src="'.base_url().'application/views/images/ep3.jpg" alt="" /></a>
-						</div>
-						<div class="e-pic-info">
-							<a href="single.html">MarkerBot Announces the ‘Replicator 2x’  For the Experimental</a>
-							<span></span>
-							<label>2 Days Ago</label>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="editors-pic">
-						<div class="e-pic">
-							<a href="single.html"><img src="'.base_url().'application/views/images/ep4.jpg" alt="" /></a>
-						</div>
-						<div class="e-pic-info">
-							<a href="single.html">3D Printed Record – the next revolution?</a>
-							<span></span>
-							<label>2 Days Ago</label>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-	   		';
+			$pop = '';				
+ 			$res = $this->db->query("select a.nombre,a.image_min,a.fecha from t_articulos a where a.editor_selection = 1 order by a.fecha desc limit 5");			
+			// $res = $this->db->query("select a.nombre,a.img_min,a.fecha from t_articulos a inner join t_categorias c on c.id_categoria = a.id_categoria inner join t_admin u on u.id_admin = a.user");			
+			
+			$result =  $res->result_array();
+			if(!empty($result)){
+				foreach ($result as $key => $r) {
+					$pop .= '
+						<div class="editors-pic">
+							<div class="e-pic">
+								<a href="single.html"><img src="'.base_url().'application/views/images/'.$r['image_min'].'" alt="" /></a>
+							</div>
+							<div class="e-pic-info">
+								<a href="single.html">'.$r['nombre'].'</a>
+								<span></span>
+								<label>Hace '.(app::fulldatediff($r['fecha'],date('Y-m-d H:i'))).'</label>
+							</div>
+							<div class="clearfix"></div>
+						</div>';
+				}
+			}
+	   		return $pop;
 	   }
 
 }

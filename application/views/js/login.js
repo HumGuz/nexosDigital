@@ -23,7 +23,7 @@ login = {
          app.spin('btn-login');
         $.ajax({
             type:'POST',
-            url : "/index.php/login/login",
+            url : "index.php/login/login",
             dataType : "json",
             data : object
         }).done(function(response) {    

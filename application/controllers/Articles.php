@@ -19,10 +19,8 @@ class Articles extends CI_Controller {
 								'editorsPick'=>$this->articles_model->getEditorsPick()
 						 	)
 						 );
-			
-			
 		}
-						
+				
 	}
 
 }

@@ -50,6 +50,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'nexos';
-$route['404_override'] = '';
+$route['404_override'] = 'not_found_404';
 $route['translate_uri_dashes'] = FALSE;
 $route['(:num)/(:any)'] = 'nexos/index/$2/$1';

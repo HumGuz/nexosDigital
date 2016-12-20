@@ -9,10 +9,15 @@ class Articles_model extends CI_Model {
 		function getRecent($data){
 			
 			$pop = '';
+			$condition = '';
+			if($data['id_categoria'])
+				$condition .= " and c.id_categoria = ".$data['id_categoria'];
+			
 			$res = $this->db->query("select a.*,c.nombre as categoria, concat(u.nombre,' ',u.apellidos) as autor 
-			from t_articulos a 
-			inner join t_categorias c on c.id_categoria = a.id_categoria 
-			inner join t_admin u on u.id_admin = a.user ");			
+									 from t_articulos a 
+									 inner join t_categorias c on c.id_categoria = a.id_categoria 
+									 inner join t_admin u on u.id_admin = a.user 									 
+									 where 1=1 ".$condition." order by a.fecha desc");			
 			$result =  $res->result_array();
 			if(!empty($result)){
 				foreach ($result as $key => $r) {					
@@ -26,6 +31,9 @@ class Articles_model extends CI_Model {
 							</div>
 						';
 				}
+			}else{
+			$pop =( '<div class="mnr-c"> <div class="med card-section">  <p style="padding-top:.33em"> No se han encontrado resultados para tu búsqueda.  </p>  <p style="margin-top:1em">Sugerencias:</p> <ul style="margin-left:1.3em;margin-bottom:2em"><li>Asegúrate de que todas las palabras estén escritas correctamente.</li><li>Prueba diferentes palabras clave.</li><li>Prueba palabras clave más generales.</li></ul> </div> </div>');
+		
 			}
 	   		return $pop;
 		}
@@ -59,9 +67,18 @@ class Articles_model extends CI_Model {
 				 	</div>
 				 ','info'=>$res);
 				
+			}else{
+				return array('article'=> '<div class="mnr-c"> <div class="med card-section">  <p style="padding-top:.33em"> No se han encontrado resultados para tu búsqueda.  </p>  <p style="margin-top:1em">Sugerencias:</p> <ul style="margin-left:1.3em;margin-bottom:2em"><li>Asegúrate de que todas las palabras estén escritas correctamente.</li><li>Prueba diferentes palabras clave.</li><li>Prueba palabras clave más generales.</li></ul> </div> </div>');
 			}
-	   		return $pop;
+	   		
 		}
+
+		function getCategorias($data){	
+			$res = $this->db->query("select * from t_categorias c order by nombre asc");			
+			$result =  $res->result_array();			
+	   		return $result;
+		}
+
 
 		function getFeatures(){ 
 			return '				

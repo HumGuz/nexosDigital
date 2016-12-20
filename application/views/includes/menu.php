@@ -37,7 +37,7 @@
 						$cats = '';
 						if(!empty($categorias)){							
 							foreach ($categorias as $key => $c) {
-								$cats .= ' <li><a href="categoria/'.$c['id_categoria'].'">'.$c['nombre'].'</a></li> |';
+								$cats .= ' <li><a href="/categoria/'.$c['id_categoria'].'">'.$c['nombre'].'</a></li> |';
 							}						
 						}	
 						echo  trim($cats,'|');				

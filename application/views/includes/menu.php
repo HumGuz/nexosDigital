@@ -7,7 +7,7 @@
 	<div class="header">
 		<div class="container">
 			<div class="logo">
-				<a href="nexos"><h1>Nexos Digital</h1></a>
+				<a href="<?php echo base_url(); ?>"><h1>Nexos Digital</h1></a>
 			</div>
 			<!-- <div class="pages">
 				<ul>

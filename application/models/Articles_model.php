@@ -33,7 +33,7 @@ class Articles_model extends CI_Model {
 						';
 				}
 			}else{
-			$pop =( '<div class="mnr-c"> <div class="med card-section">  <p style="padding-top:.33em"> No se han encontrado resultados para tu búsqueda.  </p>  <p style="margin-top:1em">Sugerencias:</p> <ul style="margin-left:1.3em;margin-bottom:2em"><li>Asegúrate de que todas las palabras estén escritas correctamente.</li><li>Prueba diferentes palabras clave.</li><li>Prueba palabras clave más generales.</li></ul> </div> </div>');
+			$pop =( '<div class="mnr-c"> <div class="med card-section">  <p style="padding-top:.33em"> No se han encontrado resultados para tu bÃºsqueda.  </p>  <p style="margin-top:1em">Sugerencias:</p> <ul style="margin-left:1.3em;margin-bottom:2em"><li>AsegÃºrate de que todas las palabras estÃ¡n escritas correctamente.</li><li>Prueba diferentes palabras clave.</li><li>Prueba palabras clave mÃ¡s generales.</li></ul> </div> </div>');
 		
 			}
 	   		return $pop;
@@ -69,7 +69,7 @@ class Articles_model extends CI_Model {
 				 ','info'=>$res);
 				
 			}else{
-				return array('article'=> '<div class="mnr-c"> <div class="med card-section">  <p style="padding-top:.33em"> No se han encontrado resultados para tu búsqueda.  </p>  <p style="margin-top:1em">Sugerencias:</p> <ul style="margin-left:1.3em;margin-bottom:2em"><li>Asegúrate de que todas las palabras estén escritas correctamente.</li><li>Prueba diferentes palabras clave.</li><li>Prueba palabras clave más generales.</li></ul> </div> </div>');
+				return array('article'=> '<div class="mnr-c"> <div class="med card-section">  <p style="padding-top:.33em"> No se han encontrado resultados para tu bÃºsqueda.  </p>  <p style="margin-top:1em">Sugerencias:</p> <ul style="margin-left:1.3em;margin-bottom:2em"><li>AsegÃºrate de que todas las palabras estÃ¡n escritas correctamente.</li><li>Prueba diferentes palabras clave.</li><li>Prueba palabras clave mÃ¡s generales.</li></ul> </div> </div>');
 			}
 	   		
 		}
@@ -101,7 +101,7 @@ class Articles_model extends CI_Model {
 	   			
 					<a href="article/'.str_replace(' ', '-', strtolower ('The new kid on the block An Elegant 3D Printer')).'/5521">
 						<div class="editor text-center">
-							<h3>DeltaMaker – The new kid on the block An Elegant 3D Printer</h3>
+							<h3>DeltaMaker ï¿½ The new kid on the block An Elegant 3D Printer</h3>
 							<p>A new cheap ass 3D Printer worth checking out</p>
 							<label>2 Days Ago</label>
 							<span></span>
@@ -117,7 +117,7 @@ class Articles_model extends CI_Model {
 					</a>
 					<a href="article/'.str_replace(' ', '-', strtolower ('A new cheap ass 3D Printer worth checking out')).'/5521">
 						<div class="editor text-center">
-							<h3>DeltaMaker – The new kid on the block An Elegant 3D Printer</h3>
+							<h3>DeltaMaker ï¿½ The new kid on the block An Elegant 3D Printer</h3>
 							<p>A new cheap ass 3D Printer worth checking out</p>
 							<label>2 Days Ago</label>
 							<span></span>

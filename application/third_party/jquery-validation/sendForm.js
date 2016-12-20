@@ -22,26 +22,8 @@
 						$("button[data-id='" + id + "']").removeClass('btn-default').addClass('red btn-outline').click(function() {
 							$(this).removeClass('red btn-outline').addClass('btn-default');
 						});
-						
-						
-					// mt = 0;
-					// halp = $("#" + id).parents('.form-group').eq(0).find('.help-block');
-					// if (halp.length)
-						// halp.text('msj');
-					// else
-						// $("#" + id).parents('.form-group').eq(0).append(' <span class="help-block">' + msj + '</span>');
-					// mt = 1;
-
-
-					// console.log($("#" + id).parents('.form-group').eq(0));
-
-					$("#" + id).parents('.form-group').eq(0).addClass('has-error').click(function() {
-						// if (mt)
-							$("#" + id).parents('.form-group').eq(0).removeClass('has-error').find('.help-block').remove();
-						// else {
-							// $("#" + id).parents('.form-group').eq(0).removeClass('has-error');
-							// // $("#" + id + "-error").remove();
-						// }
+					$("#" + id).parents('.form-group').eq(0).addClass('has-error').click(function() {							
+						$("#" + id).parents('.form-group').eq(0).removeClass('has-error').find('.help-block').remove();
 					});
 				});
 	

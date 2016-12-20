@@ -23,15 +23,27 @@ login = {
          app.spin('btn-login');
         $.ajax({
             type:'POST',
-            url : "index.php/login/login",
+            url : "login/login",
             dataType : "json",
             data : object
         }).done(function(response) {    
             console.log(response);      
-            app.spin('btn-login');
-            // if(response.status==1)
-                // location.href = './index.php/admin/';
-                  
+            app.spin('btn-login');  
+            if(response.status == 1)
+            	location.href = 'admin/';
+            else{
+            	($("#login-form").validate()).showErrors(response);            
+	            $("#login-form input.invalid").each(function(k,e){
+	            	id = $(this).attr('id');
+	            	if ($("#" + id).hasClass('selectpicker'))
+							$("button[data-id='" + id + "']").removeClass('btn-default').addClass('red btn-outline').click(function() {
+								$(this).removeClass('red btn-outline').addClass('btn-default');
+							});
+						$("#" + id).parents('.form-group').eq(0).addClass('has-error').click(function() {							
+							$("#" + id).parents('.form-group').eq(0).removeClass('has-error').find('.help-block').remove();
+						});
+	            });       
+            }	                 
         }).fail(function(response,response2,response3) {
             console.log(response,response2,response3);      
             app.spin('btn-login');

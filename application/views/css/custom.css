@@ -1,0 +1,9 @@
+.article-content p{
+	color: #798184;
+    font-size: 1.15em;
+    font-weight: 400;
+    line-height: 1.5em;
+    font-family: 'Times-Italic';
+    font-style: italic;
+    margin: 1em 0;
+}

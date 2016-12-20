@@ -8,12 +8,12 @@ class Admin_model extends CI_Model {
 		$res = $this->db->query("select * from t_admin where mail = '".trim($data['email'])."' ");		
 		$res = $res->result_array();		
 		if(empty($res[0]))
-			return array('status'=>3,'error'=>"El email capturado no existe");
+			return array('email'=>"El email capturado no existe");
 		else{
 			$res = $this->db->query("select * from t_admin where mail = '".trim($data['email'])."' and pass = '".trim( md5($data['key']) )."' ");		
 			$res = $res->result_array();		
 			if(empty($res[0]))
-				return array('status'=>2,"La contraseña no es correcta");
+				return array('key'=>"La contraseña no es correcta");
 			else 
 				return $res[0];
 		}

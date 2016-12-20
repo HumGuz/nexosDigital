@@ -5,27 +5,63 @@ class Articles_model extends CI_Model {
 	    	parent::__construct();
 			$this->load->library('app');
 	    }	
-		function getArticle(){
-			return '
+		
+		function getRecent($data){
 			
-				<div class="article">
-					<h5 class="head">En noticias recientes</h5>
-					<h6>Software </h6>
-					<a class="title" href="single.html">DeltaMaker – The new kid on the block An Elegant 3D Printer and a new wicked ass thing</a>
-					<a href="single.html"><img src="'.base_url().'application/views/images/a1.jpg" alt="" /></a>
-					<p>Products were inspired by Behance\'s research of especially productive teams in the creative industry. Hundreds of individuals and teams were interviewed, and Behance chronicled the work habits and best practices of creative leaders. </p>
-					<p>The paper products were initially designed by and for the Behance team as a way to stay organized. In 2007, at the insistence of friends who wanted Action Pads of their own...</p>
-				</div>
-				<div class="article">
-					<h6>Printers</h6>
-					<a class="title" href="single.html">Nokia offering customers printable STL phone cases for the Lumia 820 and things </a>
-					<a href="single.html"><img src="'.base_url().'application/views/images/a2.jpg" alt="" /></a>
-					<p>This week Nokia announced it is giving away files for printable case for it’s new Lumia 820 range. This week Nokia a files for printable case for it’s new Lumia 820 range. This week Nokia announced it is giving away files for printable case for it’s new Lumia 820 range. This week Nokia announced it is giving away files for printable case for it’s new Lumia 820 range. </p>
-				</div>
-			
-			';
+			$pop = '';
+			$res = $this->db->query("select a.*,c.nombre as categoria, concat(u.nombre,' ',u.apellidos) as autor 
+			from t_articulos a 
+			inner join t_categorias c on c.id_categoria = a.id_categoria 
+			inner join t_admin u on u.id_admin = a.user ");			
+			$result =  $res->result_array();
+			if(!empty($result)){
+				foreach ($result as $key => $r) {					
+						$pop .= '			
+							<div class="article">
+								'.(($key==0)?'<h5 class="head">En noticias recientes</h5>':'').'
+								<h6>'.$r['categoria'].'</h6>
+								<a class="title" href="'.$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'" >'.$r['nombre'].'</a>
+								<a href="'.$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'"><img src="'.base_url().'application/views/images/'.$r['image'].'" alt="" /></a>
+								'.$r['resumen'].'
+							</div>
+						';
+				}
+			}
+	   		return $pop;
 		}
-
+		
+		function getArticle($data){			
+			$pop = '';
+			$res = $this->db->query("select a.*,c.nombre as categoria, concat(u.nombre,' ',u.apellidos) as autor 
+			from t_articulos a 
+			inner join t_categorias c on c.id_categoria = a.id_categoria 
+			inner join t_admin u on u.id_admin = a.user where a.id_articulo =".$data['id_articulo']);			
+			
+			$result =  $res->result_array();
+			if(!empty($result)){
+				$res = $result[0];				
+				$tags = explode(',', $res['tags']);
+				$t = '';
+				if(count($tags)){
+					for ($i=0; $i < count($tags); $i++) { 
+						$t .= '<a href="tag/'.$tags[$i].'">'.$tags[$i].'</a>';
+					}
+					$t .= ' | ';
+				}
+				return array('article'=>
+				 '	<h3>'.$res['categoria'].'</h3>
+					<a href="'.$res['id_articulo'].'/'.(app::poner_guion($res['nombre'])).'" >'.$res['nombre'].'</a>
+					<p class="sub_head">Publicado por <a href="#">'.$res['autor'].'</a> el '.(app::dateFormat($r['fecha'],5)).'</p>
+					<a href="single.html"><img src="'.base_url().'application/views/images/'.$res['image'].'" class="img-responsive" alt="" /></a>
+					<p class="span"> '.$t.'   el '.(app::dateFormat($r['fecha'],5)).'</p>
+				 	<div class="article-content">
+				 		'.$res['content'].'
+				 	</div>
+				 ','info'=>$res);
+				
+			}
+	   		return $pop;
+		}
 
 		function getFeatures(){ 
 			return '				
@@ -39,29 +75,6 @@ class Articles_model extends CI_Model {
 							<li><a href="#">Rigid aluminum extrusion construction</a></li>
 							<li><a href="#">Utilizes open source software tool chain</a></li>
 						</ul>
-			';
-		}
-
-	
-	
-		function getRecent(){
-			return '
-			
-				<div class="article">
-					<h5 class="head">En noticias recientes</h5>
-					<h6>Software </h6>
-					<a class="title" href="5521/'.str_replace(' ', '-', strtolower ('The new kid on the block An Elegant 3D Printer')).'">DeltaMaker – The new kid on the block An Elegant 3D Printer and a new wicked ass thing</a>
-					<a href="article/'.str_replace(' ', '-', strtolower ('The new kid on the block An Elegant 3D Printer')).'/5521"><img src="'.base_url().'application/views/images/a1.jpg" alt="" /></a>
-					<p>Products were inspired by Behance\'s research of especially productive teams in the creative industry. Hundreds of individuals and teams were interviewed, and Behance chronicled the work habits and best practices of creative leaders. </p>
-					<p>The paper products were initially designed by and for the Behance team as a way to stay organized. In 2007, at the insistence of friends who wanted Action Pads of their own...</p>
-				</div>
-				<div class="article">
-					<h6>Printers</h6>
-					<a class="title" href="article/'.str_replace(' ', '-', strtolower ('Nokia offering customers printable STL phone cases for the Lumia 820 and things')).'/5521">Nokia offering customers printable STL phone cases for the Lumia 820 and things </a>
-					<a href="article/'.str_replace(' ', '-', strtolower ('Nokia offering customers printable STL phone cases for the Lumia 820 and things')).'/5521"><img src="'.base_url().'application/views/images/a2.jpg" alt="" /></a>
-					<p>This week Nokia announced it is giving away files for printable case for it’s new Lumia 820 range. This week Nokia a files for printable case for it’s new Lumia 820 range. This week Nokia announced it is giving away files for printable case for it’s new Lumia 820 range. This week Nokia announced it is giving away files for printable case for it’s new Lumia 820 range. </p>
-				</div>
-			
 			';
 		}
 

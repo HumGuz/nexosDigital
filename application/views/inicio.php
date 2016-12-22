@@ -18,20 +18,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<?php echo $recent; ?>
 			</div>
 			<div class="col-md-5 content-right">
-				<div class="content-right-top">
-					<h5 class="head">Populares</h5>	
+				<div class="content-right-top">					
 					<?php echo $popular; ?>
 				</div>
-				<div class="editors-pic-grids">
-						<h5>Selección del editor</h5>
+				<div class="editors-pic-grids">						
 					<?php echo $editorsPick; ?>
 				</div>
 			</div>
 			<div class="clearfix"></div>
-			 <div class="features">
+			 <!-- <div class="features">
 				<h5>Noticias destacadas</h5>
 				<h2>Nokia offering customers printable STL phone cases for the Lumia 820</h2>
-			</div> 						
+			</div> 		 -->				
 		</div>
 	</div>
 		<?php  include_once 'includes/footer.php'; ?>

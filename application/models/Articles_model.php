@@ -7,6 +7,21 @@ class Articles_model extends CI_Model {
 			$this->load->library('app');
 	    }	
 		
+		function listArticles($data=''){
+			$condition = '';
+			if($data['id_categoria'])
+				$condition .= " and c.id_categoria = ".$data['id_categoria'];
+			
+			$res = $this->db->query("select a.*,c.nombre as categoria, concat(u.nombre,' ',u.apellidos) as autor 
+									 from t_articulos a 
+									 inner join t_categorias c on c.id_categoria = a.id_categoria 
+									 inner join t_admin u on u.id_admin = a.user 									 
+									 where 1=1 ".$condition." order by a.fecha desc");			
+			$result =  $res->result_array();
+			return $result;
+		}
+		
+		
 		function getRecent($data){
 			
 			$pop = '';
@@ -18,7 +33,7 @@ class Articles_model extends CI_Model {
 									 from t_articulos a 
 									 inner join t_categorias c on c.id_categoria = a.id_categoria 
 									 inner join t_admin u on u.id_admin = a.user 									 
-									 where 1=1 ".$condition." order by a.fecha desc");			
+									 where a.status =1 ".$condition." order by a.fecha desc");			
 			$result =  $res->result_array();
 			if(!empty($result)){
 				foreach ($result as $key => $r) {					
@@ -26,8 +41,8 @@ class Articles_model extends CI_Model {
 							<div class="article">
 								'.(($key==0)?'<h5 class="head">En noticias recientes</h5>':'').'
 								<h6>'.$r['categoria'].'</h6>
-								<a class="title" href="'.$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'" >'.$r['nombre'].'</a>
-								<a href="'.$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'"><img src="'.base_url().'application/views/images/'.$r['image'].'" alt="" /></a>
+								<a class="title" href="'.base_url().$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'" >'.$r['nombre'].'</a>
+								<a href="'.base_url().$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'"><img src="'.base_url().'application/views/images/'.$r['image'].'" alt="" /></a>
 								'.$r['resumen'].'
 							</div>
 						';
@@ -41,32 +56,36 @@ class Articles_model extends CI_Model {
 		
 		function getArticle($data){			
 			$pop = '';
+			
+			$condition .= ($data['admin'])?'':' and a.status = 1';
+			
+			
 			$res = $this->db->query("select a.*,c.nombre as categoria, concat(u.nombre,' ',u.apellidos) as autor 
 			from t_articulos a 
 			inner join t_categorias c on c.id_categoria = a.id_categoria 
-			inner join t_admin u on u.id_admin = a.user where a.id_articulo =".$data['id_articulo']);			
+			inner join t_admin u on u.id_admin = a.user where a.id_articulo =".$data['id_articulo']." ".$condition);			
 			
 			$result =  $res->result_array();
 			if(!empty($result)){
-				$res = $result[0];				
-				$tags = explode(',', $res['tags']);
+				$r = $result[0];				
+				$tags = explode(',', $r['tags']);
 				$t = '';
 				if(count($tags)){
 					for ($i=0; $i < count($tags); $i++) { 
-						$t .= '<a href="tag/'.$tags[$i].'">'.$tags[$i].'</a>';
+						$t .= '<a '.$data['target'].' href="tag/'.$tags[$i].'">'.$tags[$i].'</a>';
 					}
 					$t .= ' | ';
 				}
 				return array('article'=>
-				 '	<h3>'.$res['categoria'].'</h3>
-					<a href="'.$res['id_articulo'].'/'.(app::poner_guion($res['nombre'])).'" >'.$res['nombre'].'</a>
-					<p class="sub_head">Publicado por <a href="#">'.$res['autor'].'</a> el '.(app::dateFormat($r['fecha'],5)).'</p>
-					<a href="single.html"><img src="'.base_url().'application/views/images/'.$res['image'].'" class="img-responsive" alt="" /></a>
+				 '	<h3>'.$r['categoria'].'</h3>
+					<a '.$data['target'].' href="'.base_url().$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'" >'.$r['nombre'].'</a>
+					<p class="sub_head">Publicado por '.$r['autor'].' el '.(app::dateFormat($r['fecha'],5)).'</p>
+					<a '.$data['target'].' href="'.base_url().$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'"><img src="'.base_url().'application/views/images/'.$r['image'].'" class="img-responsive" alt="" /></a>
 					<p class="span"> '.$t.'   el '.(app::dateFormat($r['fecha'],5)).'</p>
 				 	<div class="article-content">
-				 		'.$res['content'].'
+				 		'.$r['content'].'
 				 	</div>
-				 ','info'=>$res);
+				 ','info'=>$r);
 				
 			}else{
 				return array('article'=> '<div class="mnr-c"> <div class="med card-section">  <p style="padding-top:.33em"> No se han encontrado resultados para tu búsqueda.  </p>  <p style="margin-top:1em">Sugerencias:</p> <ul style="margin-left:1.3em;margin-bottom:2em"><li>Asegúrate de que todas las palabras están escritas correctamente.</li><li>Prueba diferentes palabras clave.</li><li>Prueba palabras clave más generales.</li></ul> </div> </div>');
@@ -97,58 +116,56 @@ class Articles_model extends CI_Model {
 		}
 
 	   function getPopular(){
-	   		return '
-	   			
-					<a href="article/'.str_replace(' ', '-', strtolower ('The new kid on the block An Elegant 3D Printer')).'/5521">
-						<div class="editor text-center">
-							<h3>DeltaMaker � The new kid on the block An Elegant 3D Printer</h3>
-							<p>A new cheap ass 3D Printer worth checking out</p>
-							<label>2 Days Ago</label>
-							<span></span>
-						</div>
-					</a>
-					<a class="active" href="article/'.str_replace(' ', '-', strtolower ('Autodesk Inventor Fusion for Mac')).'/5521">
-						<div class="editor text-center">
-							<h3>Software Review: Autodesk Inventor Fusion for Mac</h3>
-							<p>3D Printing, 3D Software</p>
-							<label>3 Days Ago</label>
-							<span></span>
-						</div>
-					</a>
-					<a href="article/'.str_replace(' ', '-', strtolower ('A new cheap ass 3D Printer worth checking out')).'/5521">
-						<div class="editor text-center">
-							<h3>DeltaMaker � The new kid on the block An Elegant 3D Printer</h3>
-							<p>A new cheap ass 3D Printer worth checking out</p>
-							<label>2 Days Ago</label>
-							<span></span>
-						</div>
-					</a>
-					<a href="article/'.str_replace(' ', '-', strtolower ('3D Printing, 3D Software')).'/5521">
-						<div class="editor text-center">
-							<h3>Software Review: Autodesk Inventor Fusion for Mac</h3>
-							<p>3D Printing, 3D Software</p>
-							<label>3 Days Ago</label>
-							<span></span>
-						</div>
-					</a>
-	   		';
+			$pop = '';
+			$res = $this->db->query("select a.* from t_articulos a 													 
+									 where a.status = 1 ".$condition." order by views_count desc limit 4");			
+			$result =  $res->result_array();
+			if(!empty($result)){
+				$pop .= '<h5 class="head">Populares</h5>	';
+				foreach ($result as $key => $r) {					
+						$pop .= '
+							<a href="'.base_url().$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'">
+								<div class="editor text-center">
+									<h3>'.$r['nombre'].'</h3>
+									<p>'.$r['descripcion'].'</p>
+									<label>Hace '.(app::fulldatediff($r['fecha'],date('Y-m-d H:i'))).'</label>
+									<span></span>
+								</div>
+							</a>
+						';
+				}
+			}
+	   		return $pop;
 	   }
+
+
+		function updateOption($data){		
+			$res = $this->db->query("update t_articulos a set a.".$data['col']." = if(a.".$data['col']."=0,1,0)	 where a.id_articulo =".$data['id_articulo']);			
+			if($res)
+				return array('status'=>1);
+			else
+				return array('status'=>2);
+	   }
+
+
 
  		function getEditorsPick(){
 			$pop = '';				
- 			$res = $this->db->query("select a.nombre,a.image_min,a.fecha from t_articulos a where a.editor_selection = 1 order by a.fecha desc limit 5");			
+ 			$res = $this->db->query("select a.id_articulo,a.nombre,a.image_min,a.fecha from t_articulos a where a.editor_selection = 1 and a.status = 1 order by a.fecha desc limit 5");			
 			// $res = $this->db->query("select a.nombre,a.img_min,a.fecha from t_articulos a inner join t_categorias c on c.id_categoria = a.id_categoria inner join t_admin u on u.id_admin = a.user");			
 			
 			$result =  $res->result_array();
 			if(!empty($result)){
+					$pop .= '<h5>Selección del editor</h5>';
+					
 				foreach ($result as $key => $r) {
 					$pop .= '
 						<div class="editors-pic">
 							<div class="e-pic">
-								<a href="single.html"><img src="'.base_url().'application/views/images/'.$r['image_min'].'" alt="" /></a>
+								<a href="'.base_url().$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'"><img src="'.base_url().'application/views/images/'.$r['image_min'].'" alt="" /></a>
 							</div>
 							<div class="e-pic-info">
-								<a href="single.html">'.$r['nombre'].'</a>
+								<a href="'.base_url().$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'">'.$r['nombre'].'</a>
 								<span></span>
 								<label>Hace '.(app::fulldatediff($r['fecha'],date('Y-m-d H:i'))).'</label>
 							</div>

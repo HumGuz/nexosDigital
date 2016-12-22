@@ -1,13 +1,11 @@
 app = {
-    init : function() {
-       
+    init : function() {       
         $("span.menu").click(function() {
 			$(".list-nav").slideToggle("slow", function() {
 				// Animation complete.
 			});
 		});
 		$("span.glyphicon-log-in").tooltip();
-        $(".logout").click(function(){$.ajax({url:"views/request.php",data:{request:'logout'}}).done(function(){location.href='../'})});
     },       
     showPassword:function() {
 		var key_attr = $('#key').attr('type');
@@ -56,8 +54,43 @@ app = {
 			aux[k.replace(trim, '')] = v;
 		});
 		return aux;
-	}
-}
+	},
+	 runFixTableHead:function(table){             
+               idTable = table.attr('id');               
+               tcontainer = $('<div class="fix-thead fix-thead-container"></div>').attr('id',idTable+'-container');
+               fixedHead = $('<table  class="fix-thead-head table table-bordered table-condensed" ></table>').attr('id',idTable+'-head'); 
+               fixedBody = $('<div class="fix-thead-body" style="overflow-y:scroll;"></div>').attr('id',idTable+'-body');               
+               tcontainer.insertBefore(table); 
+               fixedHead.appendTo(tcontainer);
+               fixedBody.appendTo(tcontainer);
+               table.appendTo(fixedBody);
+               table.find('thead').appendTo(fixedHead);             
+               firstRowHeadCols = fixedHead.first('tr').find('td');
+               firstRowBodyCols = table.first('tr').find('td');   
+               config = table.data();
+               console.log(config);               
+               if(config.setWidth == true){       
+               // if(table.attr('data-set-width') == '' || table.attr('data-set-width') !='false'){
+                   table.find('td').removeAttr('width');
+                   $.each(firstRowBodyCols,function(j,col){$(col).attr('width',$(firstRowHeadCols[j]).attr('width'));}); 
+               }
+                maxHeight = (config.container)?$("#"+config.container).innerHeight():$(window).innerHeight();                         
+               // maxHeight = (table.attr('data-container'))?$("#"+table.attr('data-container')).innerHeight():$(window).innerHeight();               
+               fixedBody.css('height',maxHeight-parseInt(config.height));
+               //fixedBody.css('height',maxHeight-parseInt(table.attr('data-height')));
+               table.attr('data-fixed','true');
+               // table.data('fixed',true);               
+               // if(table.attr('data-max-width'))  
+               	// tcontainer.css({'max-width':parseInt(table.attr('data-max-width')),'margin':'0px auto' });                   
+               // if(table.attr('data-eval'))
+                   // eval(table.attr('data-eval'));               
+               if(config.maxWidth)                   
+                   tcontainer.css({'max-width':parseInt(config.maxWidth),'margin':'0px auto' });               
+               if(config.eval)
+                   eval(config.eval);
+    }
+};
 $(document).ready(function() {  
     app.init();
+    base_url = 'http://localhost:8080/nexosDigital/';
 });

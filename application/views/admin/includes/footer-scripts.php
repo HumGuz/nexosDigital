@@ -14,4 +14,7 @@
 <script src="<?php echo base_url();?>application/third_party/jquery-validation/jquery.validate.password.js"></script>
 <script src="<?php echo base_url();?>application/third_party/jquery-validation/sendForm.js"></script>
 <!-- Custom Theme JavaScript -->
+<script src="<?php echo base_url();?>application/views/js/app.js"></script>
+
+
 <script src="<?php echo base_url();?>application/views/js/admin.js"></script>

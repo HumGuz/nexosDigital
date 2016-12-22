@@ -6,7 +6,7 @@ class Login extends CI_Controller {
     	parent::__construct();
 		$this->load->model('articles_model');   
 		$this->load->model('admin_model');		
-    }	
+    }
 	public function login(){		
 		if($this->input->is_ajax_request() && $this->input->post('request') =='login'){  			
 			$data = $this->input->post();
@@ -21,4 +21,5 @@ class Login extends CI_Controller {
 			}
         }
 	}
+	
 }

@@ -1,3 +1,6 @@
+ <?php 
+ $us = $this->session->userdata('admin'); 
+ ?>
  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -9,11 +12,10 @@
                 <a class="navbar-brand" href="index.html">Nexos Digital | Administración del sitio</a>
             </div>
             <!-- /.navbar-header -->
-
             <ul class="nav navbar-top-links navbar-right">                
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-user fa-fw"></i> <?php echo $us['nombre'].' '.$us['apellidos'] ?> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> Perfiles de administrador</a>
@@ -21,7 +23,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Configuraciones</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Salir</a>
+                        <li><a href="<?php echo base_url() ?>logout"><i class="fa fa-sign-out fa-fw"></i> Salir</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -33,10 +35,10 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">                      
                         <li>
-                            <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
+                            <a href="<?php echo base_url(); ?>admin/dashboard/"><i class="fa fa-home fa-fw"></i> Inicio</a>
                         </li>
                         <li>
-                            <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
+                            <a href="<?php echo base_url(); ?>admin/articles/"><i class="fa fa-newspaper-o fa-fw"></i> Articulos / Publicaciones</a>
                         </li>
                     </ul>
                 </div>

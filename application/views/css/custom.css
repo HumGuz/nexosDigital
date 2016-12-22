@@ -1,3 +1,24 @@
+@font-face {
+    font-family: 'Times-Italic';
+    src: url('../fonts/Times-Italic.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Antonio-Regular';
+    src: url('../fonts/Antonio-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Georgia Italic';
+    src: url('../fonts/Georgia Italic.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
 .article-content p{
 	color: #798184;
     font-size: 1.15em;
@@ -13,4 +34,80 @@
 	font-size: 20px;
     margin: 10px auto;
     width: calc(100% - 20px);
+}
+
+/*scrolltables*/
+
+table{
+	margin:0px;
+}
+
+.fix-thead-container table {
+	margin: 0px;
+	font-size: 12px;
+}
+.fix-thead-head {
+	width: calc(100% - 16px);
+}
+.fix-thead-head tr, .modal-header {
+	background-color: #3e3e3e;
+	color: #f9f9f9;
+}
+table tr.middle td, table tr.middle th {
+	vertical-align: middle !important;
+}
+th {
+	text-align: inherit;
+}
+/* end scrolltables */
+
+
+/*custom preview article*/
+.single-page {
+ font-family: 'Georgia Italic';
+    padding: 3em;
+    border-bottom: 1px solid #e6e6e6;
+}
+.print-main h3 {
+    color: #1ac7c3;
+    font-size: 2em;
+    font-weight: 400;
+    font-family: 'Georgia Italic';
+    margin-bottom: 1em;
+    text-align: center;
+}
+.print-main a {
+    color: #000;
+    font-size: 1.5em;
+    font-weight: 400;
+    font-family: 'Georgia Italic';
+    margin-bottom: 0.5em;
+    text-decoration: none;
+}
+
+img.img-responsive {
+    width: 100%;
+}
+p.sub_head {
+    margin: 0.5em 0 1em 0;
+}
+
+p.span {
+    color: #798184;
+    font-size: 1.1em;
+    font-weight: 400;
+    line-height: 1.5em;
+    font-family: 'Times-Italic';
+    font-style: italic;
+    margin: 0.5em 0;
+}
+
+p.span a {
+    color: #1ac7c3;
+    font-size: 1.1em;
+    font-weight: 400;
+    line-height: 1.5em;
+    font-family: 'Times-Italic';
+    font-style: italic;
+    margin: 0.5em 0;
 }

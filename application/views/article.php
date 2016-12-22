@@ -57,11 +57,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			</div>			
 			<div class="col-md-5 content-right content-right-top">
 				<div class="content-right-top">
-					<h5 class="head">Populares</h5>	
 					<?php echo $popular; ?>
 				</div>
 				<div class="editors-pic-grids">
-						<h5>Selección del editor</h5>
 					<?php echo $editorsPick; ?>
 				</div>
 			</div>			
@@ -70,5 +68,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</div>
 	<?php  include_once 'includes/footer.php'; ?>
 	<?php include_once 'includes/footer-scripts.php'; ?>
+	<?php include_once 'admin/login.php'; ?>		
 </body>
 </html>

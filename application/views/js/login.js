@@ -23,14 +23,14 @@ login = {
          app.spin('btn-login');
         $.ajax({
             type:'POST',
-            url : "login/login",
+            url : base_url+"login/login",
             dataType : "json",
             data : object
         }).done(function(response) {    
             console.log(response);      
             app.spin('btn-login');  
             if(response.status == 1)
-            	location.href = 'admin/';
+            	location.href = 'admin/dashboard';
             else{
             	($("#login-form").validate()).showErrors(response);            
 	            $("#login-form input.invalid").each(function(k,e){

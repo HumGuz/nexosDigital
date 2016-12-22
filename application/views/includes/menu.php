@@ -1,9 +1,4 @@
 <!-- header-section-starts -->
-	<!-- <pre>
-		<?php print_r($categorias) ?>
- 	</pre>
-	 -->
-	
 	<div class="header">
 		<div class="container">
 			<div class="logo">
@@ -37,7 +32,7 @@
 						$cats = '';
 						if(!empty($categorias)){							
 							foreach ($categorias as $key => $c) {
-								$cats .= ' <li><a href="/categoria/'.$c['id_categoria'].'">'.$c['nombre'].'</a></li> |';
+								$cats .= ' <li><a href="'.base_url().'/categoria/'.$c['id_categoria'].'">'.$c['nombre'].'</a></li> |';
 							}						
 						}	
 						echo  trim($cats,'|');				

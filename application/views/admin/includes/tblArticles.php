@@ -18,9 +18,9 @@
 							    <input type="checkbox" autocomplete="off" '.(($a['relevant'])?'checked="checked"':'').'><span class="glyphicon '.(($a['relevant'])?'glyphicon-ok':'').'"></span> Destacada
 							  </label>
 							  <label class="btn '.(($a['status'])?'btn-default':'btn-warning').' watch togle" data-col="status" data-id_articulo="'.$a['id_articulo'].'">
-							    <input type="checkbox" autocomplete="off" '.(($a['status'])?'checked="checked"':'').'><span class="glyphicon '.(($a['status'])?'glyphicon-eye-open':'glyphicon-eye-close').'"></span> <span>Visible</span>
+							    <input type="checkbox" autocomplete="off" '.(($a['status'])?'checked="checked"':'').'><span class="glyphicon '.(($a['status'])?'glyphicon-eye-open':'glyphicon-eye-close').'"></span> <span> '.(($a['status'])?'Visible':'Oculto').'</span>
 							  </label>
-							  <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Borrar</button>
+							  <button type="button" class="btn btn-danger" onclick="admin.borrarArticulo({id_articulo:'.$a['id_articulo'].'})"><span class="glyphicon glyphicon-trash"></span> Borrar</button>
 							</div>							
                         </td>
                       </tr>';               

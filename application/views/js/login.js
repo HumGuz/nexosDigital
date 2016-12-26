@@ -30,7 +30,7 @@ login = {
             console.log(response);      
             app.spin('btn-login');  
             if(response.status == 1)
-            	location.href = 'admin/dashboard';
+            	location.href = base_url+'admin/dashboard';
             else{
             	($("#login-form").validate()).showErrors(response);            
 	            $("#login-form input.invalid").each(function(k,e){

@@ -105,7 +105,7 @@
 				 	<div class="col-sm-4">
 				 		<div class="form-group">
 						    <label class="control-label"  for="nombre">Imagen [png,jpeg,jpg]</label>
-						    <input type="file" class="form-control required" id="imagen" name="imagen" style="text-align: center">
+						    <input type="file" class="form-control" id="imagen" name="imagen" style="text-align: center">
 						</div>
 				 	</div>
 				 </div>
@@ -124,21 +124,19 @@
 				    <input  class=" required" type="text" id="tags" name="tags" data-role="tagsinput">
 				 </div>
 				 
-	       	</form> 	
-	       		
-	       		<label for="resumen">Resumen de la publicación</label>
-	       		<div id="resumen" class="summernote"></div>	       		
-	       		
-	       		<label for="content">Contenido de la publicación</label>
-	       		<div id="content" class="summernote"></div>
-	       		
-	       		
-				 
-	       		
-	       	
+	      	
+	       		 <div class="form-group">
+		       		<label for="resumen">Resumen de la publicación</label>
+		       		<textarea id="resumen" name="resumen" class="summernote required"></textarea>	       		
+	       		  </div>
+	       		 <div class="form-group">
+		       		<label for="content">Contenido de la publicación</label>
+		       		<textarea id="content" name="content" class="summernote required"></textarea>
+	       		</div>
+	       	 	</form> 	
 	      </div>
 	      <div class="modal-footer">
-	      	 <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
+	      	 <button type="submit" class="btn btn-success" id="btn-save" onclick="$('#nvaP-form').submit()"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 	      </div>
 	    </div><!-- /.modal-content -->
@@ -169,36 +167,29 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->    
 	<?php include_once 'includes/footer-scripts.php'; ?>
-	<script src="<?php echo base_url();?>application/third_party/summernote/summernote.min.js"></script>
-    <link rel="stylesheet" href="<?php echo base_url();?>application/third_party/summernote/summernote.css">
-    
-    
-    <script src="<?php echo base_url();?>application/third_party/bootstrap-select/js/bootstrap-select.min.js"></script>
-    <link rel="stylesheet" href="<?php echo base_url();?>application/third_party/bootstrap-select/css/bootstrap-select.min.css">
-    
-    
+	 <script src="<?php echo base_url();?>application/third_party/summernote/summernote.min.js"></script>
+     <link rel="stylesheet" href="<?php echo base_url();?>application/third_party/summernote/summernote.css">
+     <script src="<?php echo base_url();?>application/third_party/bootstrap-select/js/bootstrap-select.min.js"></script>
+     <link rel="stylesheet" href="<?php echo base_url();?>application/third_party/bootstrap-select/css/bootstrap-select.min.css">
      <link rel="stylesheet" href="<?php echo base_url();?>application/third_party/bootstrap-tagsinput/bootstrap-tagsinput.css">
      <script src="<?php echo base_url();?>application/third_party/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
-    
-    
      <script src="<?php echo base_url();?>application/third_party/bootstrap-datetimepicker/js/moments.min.js" type="text/javascript"> </script>
 	 <script src="<?php echo base_url();?>application/third_party/bootstrap-datetimepicker/js/es.js" type="text/javascript"> </script>  
 	 <script src="<?php echo base_url();?>application/third_party/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"> </script>  
 	 <link href="<?php echo base_url();?>application/third_party/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
-    
-    
+     <script>
+     	admin.init();
+     </script>
      <style>
      	.bootstrap-tagsinput{
      		display:block!important;
-     	}
-     	
+     	}     	
      	.bootstrap-tagsinput .label-info {
 		    background-color: #333!important;
 		}
      	.bootstrap-tagsinput .label {
 		    font-size: 13px!important;
-		}
-		
+		}		
 		/* Important part */
 		.modal-dialog{
 		    overflow-y: initial !important
@@ -206,10 +197,7 @@
 		.modal-body{
 		    height: calc(100% - 300px);
 		    overflow-y: auto;
-		}
-		
+		}		
      </style>
-    
-    
 </body>
 </html>

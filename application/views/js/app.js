@@ -67,23 +67,14 @@ app = {
                table.find('thead').appendTo(fixedHead);             
                firstRowHeadCols = fixedHead.first('tr').find('td');
                firstRowBodyCols = table.first('tr').find('td');   
-               config = table.data();
-               console.log(config);               
+               config = table.data();        
                if(config.setWidth == true){       
-               // if(table.attr('data-set-width') == '' || table.attr('data-set-width') !='false'){
                    table.find('td').removeAttr('width');
                    $.each(firstRowBodyCols,function(j,col){$(col).attr('width',$(firstRowHeadCols[j]).attr('width'));}); 
                }
-                maxHeight = (config.container)?$("#"+config.container).innerHeight():$(window).innerHeight();                         
-               // maxHeight = (table.attr('data-container'))?$("#"+table.attr('data-container')).innerHeight():$(window).innerHeight();               
+                maxHeight = (config.container)?$("#"+config.container).innerHeight():$(window).innerHeight();                                     
                fixedBody.css('height',maxHeight-parseInt(config.height));
-               //fixedBody.css('height',maxHeight-parseInt(table.attr('data-height')));
-               table.attr('data-fixed','true');
-               // table.data('fixed',true);               
-               // if(table.attr('data-max-width'))  
-               	// tcontainer.css({'max-width':parseInt(table.attr('data-max-width')),'margin':'0px auto' });                   
-               // if(table.attr('data-eval'))
-                   // eval(table.attr('data-eval'));               
+               table.attr('data-fixed','true');               
                if(config.maxWidth)                   
                    tcontainer.css({'max-width':parseInt(config.maxWidth),'margin':'0px auto' });               
                if(config.eval)
@@ -91,6 +82,5 @@ app = {
     }
 };
 $(document).ready(function() {  
-    app.init();
-    base_url = 'http://localhost:8080/nexosDigital/';
+    app.init();    
 });

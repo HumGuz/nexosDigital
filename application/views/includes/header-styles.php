@@ -10,3 +10,4 @@
 <link href="<?php echo base_url();?>application/third_party/jquery-validation/jquery.validate.password.css" rel="stylesheet" type="text/css" media="all" />
 
 <link rel="stylesheet" href="<?php echo base_url();?>application/third_party/font-awesome-4.7.0/css/font-awesome.min.css">
+

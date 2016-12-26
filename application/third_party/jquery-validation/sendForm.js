@@ -38,7 +38,7 @@
 			success : function(form_data) {
 			},
 			invalidHandler:function(events, validator) {				
-				// console.log(events);
+				 console.log(validator);
 				$('.help-block').remove();
 				$('.has-error').removeClass('has-error');
 				$('.red.btn-outline').removeClass('red btn-outline').addClass('btn-default');
@@ -47,11 +47,10 @@
 						$("button[data-id='" + id + "']").removeClass('btn-default').addClass('red btn-outline').click(function() {
 							$(this).removeClass('red btn-outline').addClass('btn-default');
 						});
-					$("#" + id).parents('.form-group').eq(0).addClass('has-error').click(function() {							
+					$("#" + id).parents('.form-group').eq(0).addClass('has-error').on('click focus focusin focusout',function() {							
 						$("#" + id).parents('.form-group').eq(0).removeClass('has-error').find('.help-block').remove();
 					});
 				});
-	
 			}
 		};
 		$.extend(defaults, object);

@@ -9,3 +9,5 @@
 <link href="<?php echo base_url();?>application/views/css/custom.css" rel="stylesheet" type="text/css" media="all" />
 <link href="<?php echo base_url();?>application/third_party/metisMenu/metisMenu.min.css" rel="stylesheet" type="text/css" media="all" />
 <link rel="stylesheet" href="<?php echo base_url();?>application/third_party/font-awesome-4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="<?php echo base_url();?>application/third_party/msgbox/msgBox.css">

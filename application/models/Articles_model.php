@@ -42,14 +42,13 @@ class Articles_model extends CI_Model {
 								'.(($key==0)?'<h5 class="head">En noticias recientes</h5>':'').'
 								<h6>'.$r['categoria'].'</h6>
 								<a class="title" href="'.base_url().$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'" >'.$r['nombre'].'</a>
-								<a href="'.base_url().$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'"><img src="'.base_url().'application/views/images/'.$r['image'].'" alt="" /></a>
+								<a href="'.base_url().$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'"><img src="'.(app::encodeImg(base_url().'application/views/images/'.$r['imagen'])).'" alt="" /></a>
 								'.$r['resumen'].'
 							</div>
 						';
 				}
 			}else{
-			$pop =( '<div class="mnr-c"> <div class="med card-section">  <p style="padding-top:.33em"> No se han encontrado resultados para tu búsqueda.  </p>  <p style="margin-top:1em">Sugerencias:</p> <ul style="margin-left:1.3em;margin-bottom:2em"><li>Asegúrate de que todas las palabras están escritas correctamente.</li><li>Prueba diferentes palabras clave.</li><li>Prueba palabras clave más generales.</li></ul> </div> </div>');
-		
+				$pop =( '<div class="mnr-c"> <div class="med card-section">  <p style="padding-top:.33em"> No se han encontrado resultados para tu búsqueda.  </p>  <p style="margin-top:1em">Sugerencias:</p> <ul style="margin-left:1.3em;margin-bottom:2em"><li>Asegúrate de que todas las palabras están escritas correctamente.</li><li>Prueba diferentes palabras clave.</li><li>Prueba palabras clave más generales.</li></ul> </div> </div>');
 			}
 	   		return $pop;
 		}
@@ -80,7 +79,7 @@ class Articles_model extends CI_Model {
 				 '	<h3>'.$r['categoria'].'</h3>
 					<a '.$data['target'].' href="'.base_url().$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'" >'.$r['nombre'].'</a>
 					<p class="sub_head">Publicado por '.$r['autor'].' el '.(app::dateFormat($r['fecha'],5)).'</p>
-					<a '.$data['target'].' href="'.base_url().$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'"><img src="'.base_url().'application/views/images/'.$r['image'].'" class="img-responsive" alt="" /></a>
+					<a '.$data['target'].' href="'.base_url().$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'"><img src="'.(app::encodeImg(base_url().'application/views/images/'.$r['imagen'])).'" class="img-responsive" alt="" /></a>
 					<p class="span"> '.$t.'   el '.(app::dateFormat($r['fecha'],5)).'</p>
 				 	<div class="article-content">
 				 		'.$r['content'].'
@@ -151,9 +150,7 @@ class Articles_model extends CI_Model {
 
  		function getEditorsPick(){
 			$pop = '';				
- 			$res = $this->db->query("select a.id_articulo,a.nombre,a.image_min,a.fecha from t_articulos a where a.editor_selection = 1 and a.status = 1 order by a.fecha desc limit 5");			
-			// $res = $this->db->query("select a.nombre,a.img_min,a.fecha from t_articulos a inner join t_categorias c on c.id_categoria = a.id_categoria inner join t_admin u on u.id_admin = a.user");			
-			
+ 			$res = $this->db->query("select a.id_articulo,a.nombre,a.imagen,a.fecha from t_articulos a where a.editor_selection = 1 and a.status = 1 order by a.fecha desc limit 5");			
 			$result =  $res->result_array();
 			if(!empty($result)){
 					$pop .= '<h5>Selección del editor</h5>';
@@ -162,7 +159,7 @@ class Articles_model extends CI_Model {
 					$pop .= '
 						<div class="editors-pic">
 							<div class="e-pic">
-								<a href="'.base_url().$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'"><img src="'.base_url().'application/views/images/'.$r['image_min'].'" alt="" /></a>
+								<a href="'.base_url().$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'"><img src="'.(app::encodeImg(base_url().'application/views/images/'.$r['imagen'])).'" alt="" /></a>
 							</div>
 							<div class="e-pic-info">
 								<a href="'.base_url().$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'">'.$r['nombre'].'</a>
@@ -175,5 +172,31 @@ class Articles_model extends CI_Model {
 			}
 	   		return $pop;
 	   }
+	   
+	  function guardarArticulo($data){	  	
+	  	unset($data['request']);	
+	  	if(empty($data['id_articulo'])){
+            $this->db->insert('t_articulos', $data);
+        }else{
+            $this->db->where('id_articulo', $data['id_articulo']);
+			unset($data['id_articulo']);
+            $this->db->update('t_articulos', $data);
+        }
+	  }
 
+	  function deleteArticulo($data){ 
+    		return $this->db->delete('t_articulos', $data);
+	  } 
+	  
+	  
+	  function getArticulo($data){				
+			$res = $this->db->query("select a.id_articulo,a.nombre,a.descripcion,a.id_categoria,a.tags,a.content,a.resumen,a.imagen,a.fecha
+									 from t_articulos a  
+									 where a.id_articulo =".$data['id_articulo']);	
+			$result =  $res->result_array();
+			return $result[0];
+	   		
+		}
+	  
+	  
 }

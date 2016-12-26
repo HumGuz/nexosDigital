@@ -11,6 +11,7 @@
                         <td   align="center" width="100px" align="center" style="padding:0px">
 							<div class="btn-group-vertical btn-group-xs" data-toggle="buttons">
 							  <button type="button" class="btn btn-info" onclick="admin.preview({id_articulo:'.$a['id_articulo'].'})"><span class="glyphicon glyphicon-exclamation-sign"></span> Ver</button>
+							   <button type="button" class="btn btn-default" onclick="admin.editarArticulo({id_articulo:'.$a['id_articulo'].'})"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
 							  <label class="btn '.(($a['editor_selection'])?'btn-primary':'btn-default').' togle" data-col="editor_selection"  data-id_articulo="'.$a['id_articulo'].'">
 							    <input type="checkbox" autocomplete="off" '.(($a['editor_selection'])?'checked="checked"':'').'><span class="glyphicon '.(($a['editor_selection'])?'glyphicon-ok':'').'"></span> Sel. editor
 							  </label>

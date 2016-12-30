@@ -18,7 +18,9 @@ class Admin extends CI_Controller {
 	}
 	
 	
-	
+	function categorias(){
+		$this->load->view('admin/categorias',array('categorias'=>$this->articles_model->getCategorias()) );
+	}
 	
 	
 	

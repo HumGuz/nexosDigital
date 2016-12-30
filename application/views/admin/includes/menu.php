@@ -40,6 +40,9 @@
                         <li>
                             <a href="<?php echo base_url(); ?>admin/articles/"><i class="fa fa-newspaper-o fa-fw"></i> Articulos / Publicaciones</a>
                         </li>
+                         <li>
+                            <a href="<?php echo base_url(); ?>admin/categorias/"><i class="glyphicon glyphicon-th fa-fw"></i> Categorías</a>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

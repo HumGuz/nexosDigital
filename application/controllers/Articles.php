@@ -59,4 +59,28 @@ class Articles extends CI_Controller {
 		echo json_encode($res);
 	}
 	 
+	 // categorias 
+	 public function guardarCategoria(){
+		$data = $this->input->post();	
+		$data['fecha'] = date('Y-m-d H:i:s');
+		$data['status'] = 1;
+		$res = $this->articles_model->guardarCategoria($data);
+		echo json_encode($res);
+	}
+	
+	
+	 public function getCategoria(){
+		$data = $this->input->post();		
+		$res = $this->articles_model->getCategorias($data);
+		echo json_encode($res[0]);
+	}
+	
+	
+	function deleteCategoria(){	  	
+	  		$data = $this->input->post();
+			unset($data['request']);
+			$result = $this->articles_model->deleteCategoria($data);
+			echo json_encode(array('status'=>1));		
+	}
+	 
 }

@@ -92,8 +92,11 @@ class Articles_model extends CI_Model {
 	   		
 		}
 
-		function getCategorias($data){	
-			$res = $this->db->query("select * from t_categorias c order by nombre asc");			
+		function getCategorias($data){
+			$condition .= ($data['id_categoria'])?' and c.id_categoria = '.$data['id_categoria']:'';				
+			$res = $this->db->query("select c.*,count(a.id_articulo) as publicaciones from t_categorias c 
+									 left join t_articulos a on a.id_categoria = c.id_categoria
+									 where 1=1 ".$condition." group by c.id_categoria order by nombre asc");			
 			$result =  $res->result_array();			
 	   		return $result;
 		}
@@ -187,8 +190,6 @@ class Articles_model extends CI_Model {
 	  function deleteArticulo($data){ 
     		return $this->db->delete('t_articulos', $data);
 	  } 
-	  
-	  
 	  function getArticulo($data){				
 			$res = $this->db->query("select a.id_articulo,a.nombre,a.descripcion,a.id_categoria,a.tags,a.content,a.resumen,a.imagen,a.fecha
 									 from t_articulos a  
@@ -198,5 +199,20 @@ class Articles_model extends CI_Model {
 	   		
 		}
 	  
+	  /* categorias */
+	  function guardarCategoria($data){	  	
+	  	unset($data['request']);	
+	  	if(empty($data['id_categoria'])){
+            $this->db->insert('t_categorias', $data);
+        }else{
+            $this->db->where('id_categoria', $data['id_categoria']);
+			unset($data['id_categoria']);
+            $this->db->update('t_categorias', $data);
+        }
+	  }
+
+	  function deleteCategoria($data){ 
+    		return $this->db->delete('t_categorias', $data);
+	  } 
 	  
 }

@@ -29,8 +29,6 @@ admin = {
 		$('.summernote').summernote({lang: 'es-ES',dialogsInBody: true});		
 		$(".selectpicker").selectpicker({});		
 		$("#fecha").datetimepicker({ format: 'YYYY-MM-DD HH:mm'});
-		
-							
 		$.validator.addMethod('filesize', function (value, element, param) {	
 		    return this.optional(element) || (element.files[0].size < param)
 		}, 'El tamaño de la imagen tiene que ser mayor a {0}');			
@@ -42,41 +40,11 @@ admin = {
 		      ? ("El ancho de la imagen tiene que ser mayor a " + minWidth + "px")
 		      : "El archivo seleccionado no es una imagen.";
 		});
-		
-		
-		admin.initValidador({});
-			
+		admin.initValidador({});			
 		$(".bootstrap-tagsinput").click(function(){
 			$(this).parents('.form-group').find('.invalid').remove();
 		});		
-		$(window).bind("load resize", function() {
-			var topOffset = 50;
-			var width = (this.window.innerWidth > 0) ? this.window.innerWidth : this.screen.width;
-			if (width < 768) {
-				$('div.navbar-collapse').addClass('collapse');
-				topOffset = 100;
-			} else {
-				$('div.navbar-collapse').removeClass('collapse');
-			}	
-			var height = ((this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height) - 1;
-			height = height - topOffset;
-			if (height < 1)
-				height = 1;
-			if (height > topOffset) {
-				$("#page-wrapper").css("min-height", (height) + "px");
-			}
-		});	
-		var url = window.location;
-		var element = $('ul.nav a').filter(function() {
-			return this.href == url;
-		}).addClass('active').parent();	
-		while (true) {
-			if (element.is('li')) {
-				element = element.parent().addClass('in').parent();
-			} else {
-				break;
-			}
-		}	
+		
 		$('.modal').on('hidden.bs.modal',function(){
 				if($(".modal.fade.in").length)
 					$('body').addClass('modal-open');
@@ -192,5 +160,103 @@ admin = {
 		    validator.element($photoInput);
 		  }
 		});	
-	}
+	},
+	
+	/* categorias */
+	
+	initCat:function(){
+		$('#side-menu').metisMenu();		
+		$("[data-toggle='tooltip']").tooltip();
+		if ($(".fix:not([data-fixed='true'])").length) {
+			$.each($(".fix:not([data-fixed='true'])"), function(k, c) {
+				app.runFixTableHead($(this));
+			});
+		}		
+		$('.modal').on('hidden.bs.modal',function(){
+				if($(".modal.fade.in").length)
+					$('body').addClass('modal-open');
+		});		
+		$("#nuevaN").on('hide.bs.modal',function(){
+			$("#nuevaN form").resetForm();			
+		});	
+		
+		
+		$("#btnnvac").on('click',function(){
+			$("#nvaP-form").sendForm({
+				request:'',
+				rules:{},
+				success:function(object){			
+					admin.guardarCategoria(object);
+				}
+			});	
+		});	
+	},	
+	guardarCategoria:function(object){		
+		app.spin('btn-save');
+		$.ajax({type:"POST",url : base_url+"Articles/guardarCategoria",dataType : "json",data:object}).done(function(response) {
+			console.log(response);
+			$("#nuevaN").modal('hide');			
+			location.reload();
+		}).fail(function(response,response2,response3) {
+            console.log(response,response2,response3);      
+            app.spin('btn-save');
+        });;
+	},	
+	borrarCategoria:function(object){
+		  $.msgBox({title : "Eliminar categoría",content : "Una vez eliminada, se perderá toda la información ligada a ella, ¿Desea continuar?",type : "alert", buttons : [{ value : "Borrar",cls:' btn-danger '},{ value : "Cancelar" }],success:function(res){
+		  	if(res=='Borrar')
+		  		$.ajax({ type : "POST",url :base_url+"articles/deleteCategoria",dataType : "json",data:object}).done(function(response) { 
+		        	location.reload();
+		        }); 
+		  }});
+	},
+	editarCategoria:function(object){
+		 $.ajax({ type : "POST",url :base_url+"articles/getCategoria",dataType : "json",data:object}).done(function(response) { 
+       		if(response.id_categoria){ 
+             	a = response;
+             	$("#nombre").val(a.nombre);
+             	$("#descripcion").val(a.descripcion);        
+             	$("#nuevaN").modal('show');   
+             	$("#nvaP-form").sendForm({
+					request:'',
+					rules:object,
+					success:function(ob){
+						ob.id_categoria = a.id_categoria;
+						admin.guardarCategoria(ob);
+					}
+				});
+             }
+        }); 
+	},
+	
 };
+$(document).ready(function(){
+	$(window).bind("load resize", function() {
+			var topOffset = 50;
+			var width = (this.window.innerWidth > 0) ? this.window.innerWidth : this.screen.width;
+			if (width < 768) {
+				$('div.navbar-collapse').addClass('collapse');
+				topOffset = 100;
+			} else {
+				$('div.navbar-collapse').removeClass('collapse');
+			}	
+			var height = ((this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height) - 1;
+			height = height - topOffset;
+			if (height < 1)
+				height = 1;
+			if (height > topOffset) {
+				$("#page-wrapper").css("min-height", (height) + "px");
+			}
+		});	
+		var url = window.location;
+		var element = $('ul.nav a').filter(function() {
+			return this.href == url;
+		}).addClass('active').parent();	
+		while (true) {
+			if (element.is('li')) {
+				element = element.parent().addClass('in').parent();
+			} else {
+				break;
+			}
+		}	
+});

@@ -7,6 +7,7 @@ class Articles_model extends CI_Model {
 			$this->load->library('app');
 	    }	
 		
+		
 		function listArticles($data=''){
 			$condition = '';
 			if($data['id_categoria'])
@@ -58,6 +59,7 @@ class Articles_model extends CI_Model {
 			
 			$condition .= ($data['admin'])?'':' and a.status = 1';
 			
+			$this->db->query("update t_articulos set views_count = (views_count  + 1) where id_articulo =".$data['id_articulo']);
 			
 			$res = $this->db->query("select a.*,c.nombre as categoria, concat(u.nombre,' ',u.apellidos) as autor 
 			from t_articulos a 
@@ -96,7 +98,7 @@ class Articles_model extends CI_Model {
 			$condition .= ($data['id_categoria'])?' and c.id_categoria = '.$data['id_categoria']:'';				
 			$res = $this->db->query("select c.*,count(a.id_articulo) as publicaciones from t_categorias c 
 									 left join t_articulos a on a.id_categoria = c.id_categoria
-									 where 1=1 ".$condition." group by c.id_categoria order by nombre asc");			
+									 where 1=1 ".$condition." group by c.id_categoria order by c.id_categoria");			
 			$result =  $res->result_array();			
 	   		return $result;
 		}
@@ -214,5 +216,10 @@ class Articles_model extends CI_Model {
 	  function deleteCategoria($data){ 
     		return $this->db->delete('t_categorias', $data);
 	  } 
+
+
+	function infoCliente($data){ 	
+        $this->db->insert('t_info_visitantes', $data);
+	}
 	  
 }

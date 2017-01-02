@@ -24,6 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<div class="editors-pic-grids">						
 					<?php echo $editorsPick; ?>
 				</div>
+				<?php  include_once 'includes/newsLetterForm.php'; ?>
 			</div>
 			<div class="clearfix"></div>
 			 <!-- <div class="features">

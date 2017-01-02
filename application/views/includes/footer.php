@@ -1,5 +1,5 @@
 <div class="footer">
-		<div class="footer-top">
+		<!-- <div class="footer-top">
 			<div class="container">
 				<div class="col-md-3 footer-links">
 					<h4>Other pages and things</h4>
@@ -33,7 +33,7 @@
 				</div>
 				<div class="clearfix"></div>
 			</div>
-		</div>
+		</div> -->
 		<div class="footer-bottom">
 			<div class="container">
 				<div class="copyrights">

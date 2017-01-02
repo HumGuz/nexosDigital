@@ -36,8 +36,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<p class="comment-form-email">
 								<label for="email">Email</label>
 								<input id="email" name="email" type="text" value="" size="30" aria-required="true">
-							</p>
-							
+							</p>							
 							<p class="comment-form-comment">
 								<label for="comment">Comentario</label>
 								<textarea></textarea>
@@ -66,7 +65,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<div class="clearfix"></div>
 		</div>
 	</div>
-	<?php  include_once 'includes/footer.php'; ?>
+	<?php include_once 'includes/footer.php'; ?>
 	<?php include_once 'includes/footer-scripts.php'; ?>
 	<?php include_once 'admin/login.php'; ?>		
 </body>

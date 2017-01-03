@@ -1460,3 +1460,63 @@ p.span a {
 		padding: 4px 10px;
 	}
 }
+
+
+
+
+
+	#newsletterForm .form-group label{
+		display: block;
+	    font-size: 1em;
+	    color: #888;
+	}
+	#newsletterForm input[type="text"] {
+	    padding: 8px 15px;	 
+	    color: #444;
+	    font-size: 1em;
+	    border: 1px solid #eee;
+	    border-radius:0px;
+	    background: #eee;
+	    outline: none;
+	    display: block;
+	}
+	#newsletterForm button[type="submit"] {
+	    padding: 12px 50px;
+	    color: #FFF;
+	    background: #444;
+	    outline: none;
+	    border: none;
+	    text-transform: uppercase;
+	    cursor: pointer;
+	    -webkit-appearance: none;
+	    font-size: 1.2em;
+	    font-weight: 500;
+	    transition: 0.5s all;
+	    -webkit-transition: 0.5s all;
+	    -moz-transition: 0.5s all;
+	    -o-transition: 0.5s all;
+	    -ms-transition: 0.5s all;
+	}	
+	#newsletterForm button[type="submit"]:hover {
+	    background: #222;
+	}
+	.newsletter{
+		background: #282828;
+		padding: 10px 0;
+		margin-top: 5px
+	}
+
+	.newsletter>div>p{
+		color: #FFF;
+		font-size: 1.35em;
+		font-weight: 400;
+		margin: 0.2em auto; 
+		font-family: 'Antonio-Regular';
+		 width: 80%;
+		 text-align: center;
+	}
+	
+	#newsletterForm{
+		width: 80% ;
+		 margin:0px auto;
+	}

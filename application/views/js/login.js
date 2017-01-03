@@ -16,7 +16,12 @@ login = {
     },
     init:function(){
         $(document).ready(function(){
-              $("#login-form").sendForm(login.validationParams);
+            $(".forget-modal").on('show.bs.modal',function(){
+            	 $("#login-form").sendForm(login.validationParams);
+            });            
+             $(".forget-modal").on('hidden.bs.modal',function(){
+            	 app.newsletterVal();
+            });              
         });
     },  
     sendData : function(object) {

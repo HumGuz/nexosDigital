@@ -6,7 +6,48 @@ app = {
 			});
 		});
 		$("span.glyphicon-log-in").tooltip();
-    },       
+		app.newsletterVal();
+    }, 
+    
+    newsletterVal:function(){
+    	$("#newsletterForm").sendForm({
+				request:'signup',			
+				rules:{
+					nombre:{
+						required:true
+					},
+					mail:{
+						email:true,
+						required:true
+					}
+				},
+				success:function(obj){
+					 console.log(obj);
+					
+					 $.ajax({ type : "POST",url:base_url+'Newsletter/signup',dataType : "json",data:obj}).done(function(res) {         
+			            console.log(res);
+			            if(res.status==1){
+			            	location.href = base_url+'nexos/bienvenido';
+			            }else{
+			            	($("#newsletterForm").validate()).showErrors(res);            
+				            $("#newsletterForm input.invalid").each(function(k,e){
+				            	id = $(this).attr('id');
+				            	if ($("#" + id).hasClass('selectpicker'))
+										$("button[data-id='" + id + "']").removeClass('btn-default').addClass('red btn-outline').click(function() {
+											$(this).removeClass('red btn-outline').addClass('btn-default');
+										});
+									$("#" + id).parents('.form-group').eq(0).addClass('has-error').click(function() {							
+										$("#" + id).parents('.form-group').eq(0).removeClass('has-error').find('.help-block').remove();
+									});
+				            });    
+			            }
+			        }).fail(function( jqXHR, textStatus, errorThrown ) {				
+							console.log(jqXHR,textStatus,errorThrown);
+					});;;
+				}
+			})	
+    },
+          
     showPassword:function() {
 		var key_attr = $('#key').attr('type');
 		if (key_attr != 'text') {

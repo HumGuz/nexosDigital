@@ -25,6 +25,9 @@
 	
 	
 	$.fn.sendForm = function(object) {
+		
+		if(!$(this).length)
+			return 0;
 		defaults = {
 			invalid_char_list : ['"', '!', '#', '$', '%', '&', '/', '(', ')', '=', '?', '¡', "'", '*', '+', '´', '¨', '~', '^', '@', '{', '}', ' ', '|', '¬', '°', '[', ']', ',', '.'],
 			errorList : [],

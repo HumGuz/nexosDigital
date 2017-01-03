@@ -31,7 +31,7 @@ class Nexos extends CI_Controller {
 	}
 	
 	function bienvenido(){
-		$this -> load -> view('welcome');
+		$this -> load -> view('welcome',array( 'categorias' => $this -> articles_model -> getCategorias()));
 	}
 	
 	

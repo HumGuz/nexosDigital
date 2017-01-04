@@ -7,6 +7,7 @@ class Nexos extends CI_Controller {
 		parent::__construct();
 		$this -> load -> model('articles_model');
 		$this->load->helper('cookie');
+		$this->load->library('app');
 	}
 
 	function index($article = '', $id = ''){		

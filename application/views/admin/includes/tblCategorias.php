@@ -9,7 +9,7 @@
                         <td   align="center" width="100px" align="center" style="padding:0px">
 							<div class="btn-group-vertical btn-group-xs" data-toggle="buttons">
 							   <button type="button" class="btn btn-default" onclick="admin.editarCategoria({id_categoria:'.$a['id_categoria'].'})"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
-							   <button type="button" class="btn btn-danger" onclick="admin.borrarCategoria({id_categoria:'.$a['id_categoria'].'})"><span class="glyphicon glyphicon-trash"></span> Borrar</button>
+							   '.(($a['publicaciones']==0)?'<button type="button" class="btn btn-danger" onclick="admin.borrarCategoria({id_categoria:'.$a['id_categoria'].'})"><span class="glyphicon glyphicon-trash"></span> Borrar</button>':'').'
 							</div>							
                         </td>
                       </tr>';               

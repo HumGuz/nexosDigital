@@ -27,6 +27,10 @@ class App {
 			$mes = $meses_short[intval(date("m", strtotime($date)))];
 			$mesL = $meses_Long[intval(date("m", strtotime($date)))];
 			$ano = date("Y", strtotime($date));
+			
+			
+			$diaSem = $dias[date("w",strtotime($date))];
+			
 			if($op==0)
 				return $dia.' '.$mes.' '.$ano;			
 			if($op==1)
@@ -39,6 +43,8 @@ class App {
 				return $dia.' '.$mes.' '.date('y',strtotime($date));
 			if($op==5)
 				return $dia.' de '.$mesL.' del '.$ano;
+			if($op==6)
+				return $diaSem.", ".$mesL.", ".$dia.", ".$ano;
 	}		
 	public static function fulldatediff($datefrom, $dateto,$op=0){
         $return="";     

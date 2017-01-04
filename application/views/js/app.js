@@ -1,44 +1,37 @@
 app = {
-    init : function() {       
+	op:1,
+    init : function(op) {    	
+    	app.op =op;    	       
         $("span.menu").click(function() {
 			$(".list-nav").slideToggle("slow", function() {
 				// Animation complete.
 			});
 		});
 		$("span.glyphicon-log-in").tooltip();
-		app.newsletterVal();
+		if(op==1)
+			app.newsletterVal();
+		else	
+			app.commentVal();
     }, 
-    
-    newsletterVal:function(){
-    	$("#newsletterForm").sendForm({
-				request:'signup',			
+    commentVal:function(){
+    	$("#commentform").sendForm({
+				request:'comment',			
 				rules:{
-					nombre:{
-						required:true
-					},
-					mail:{
-						email:true,
-						required:true
-					}
+					nombre:{required:true},
+					mail:{email:true,required:true},
+					comentario:{required:true}
 				},
 				success:function(obj){
-					 console.log(obj);
-					
-					 $.ajax({ type : "POST",url:base_url+'Newsletter/signup',dataType : "json",data:obj}).done(function(res) {         
+					 console.log(obj);					
+					 $.ajax({ type : "POST",url:base_url+'Comments/new',dataType : "json",data:obj}).done(function(res) {         
 			            console.log(res);
 			            if(res.status==1){
-			            	location.href = base_url+'nexos/bienvenido';
+			            	
+			            	
 			            }else{
-			            	($("#newsletterForm").validate()).showErrors(res);            
-				            $("#newsletterForm input.invalid").each(function(k,e){
-				            	id = $(this).attr('id');
-				            	if ($("#" + id).hasClass('selectpicker'))
-										$("button[data-id='" + id + "']").removeClass('btn-default').addClass('red btn-outline').click(function() {
-											$(this).removeClass('red btn-outline').addClass('btn-default');
-										});
-									$("#" + id).parents('.form-group').eq(0).addClass('has-error').click(function() {							
-										$("#" + id).parents('.form-group').eq(0).removeClass('has-error').find('.help-block').remove();
-									});
+			            	($("#commentform").validate()).showErrors(res);            
+				            $("#commentform input.invalid").each(function(k,e){
+				            	app.unsetInvalid(this);
 				            });    
 			            }
 			        }).fail(function( jqXHR, textStatus, errorThrown ) {				
@@ -47,7 +40,40 @@ app = {
 				}
 			})	
     },
-          
+    newsletterVal:function(){
+    	$("#newsletterForm").sendForm({
+				request:'signup',			
+				rules:{
+					nombre:{required:true},
+					mail:{email:true,required:true}
+				},
+				success:function(obj){
+					 console.log(obj);					
+					 $.ajax({ type : "POST",url:base_url+'Newsletter/signup',dataType : "json",data:obj}).done(function(res) {         
+			            console.log(res);
+			            if(res.status==1){
+			            	location.href = base_url+'nexos/bienvenido';
+			            }else{
+			            	($("#newsletterForm").validate()).showErrors(res);            
+				            $("#newsletterForm input.invalid").each(function(k,e){app.unsetInvalid(this);});    
+			            }
+			        }).fail(function( jqXHR, textStatus, errorThrown ) {				
+							console.log(jqXHR,textStatus,errorThrown);
+					});
+				}
+			})	
+    },
+     
+	unsetInvalid:function(el) {
+		id = $(el).attr('id');
+		if ($("#" + id).hasClass('selectpicker'))
+			$("button[data-id='" + id + "']").removeClass('btn-default').addClass('red btn-outline').click(function() {
+				$(el).removeClass('red btn-outline').addClass('btn-default');
+			});
+		$("#" + id).parents('.form-group').eq(0).addClass('has-error').click(function() {
+			$("#" + id).parents('.form-group').eq(0).removeClass('has-error').find('.help-block').remove();
+		});
+	},   
     showPassword:function() {
 		var key_attr = $('#key').attr('type');
 		if (key_attr != 'text') {
@@ -57,8 +83,7 @@ app = {
 			$('.checkbox').removeClass('show');
 			$('#key').attr('type', 'password');
 		}
-	},
-    
+	},    
     spin : function(e) {
         e = $("#" + e);
         if (e.prop('disabled'))
@@ -122,6 +147,4 @@ app = {
                    eval(config.eval);
     }
 };
-$(document).ready(function() {  
-    app.init();    
-});
+

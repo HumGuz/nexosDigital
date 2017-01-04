@@ -7,7 +7,8 @@ class Admin extends CI_Controller {
 		if(!$this->session->userdata('admin')){
 	        redirect('nexos', 'refresh');
 	    }
-    	$this->load->model('articles_model');				
+    	$this->load->model('articles_model');		
+		$this->load->model('Newsletter_model');		
     }	
 	function dashboard(){
 		$this->load->view('admin/dashboard' );
@@ -22,6 +23,8 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/categorias',array('categorias'=>$this->articles_model->getCategorias()) );
 	}
 	
-	
+	function subscriptores(){
+		$this->load->view('admin/subscriptores',array('subscriptores'=>$this->Newsletter_model->getSubscriptores()) );
+	}
 	
 }

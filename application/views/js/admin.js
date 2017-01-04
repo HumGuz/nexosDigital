@@ -17,8 +17,13 @@ admin = {
 			$(this).find('span').eq(1).text(function(i, text) {
 				return text === "Visible" ? "Oculto" : "Visible";
 			});
+		});	
+		$("a.togle").click(function() {
+			$(this).text(function(i, text) {
+				return text === "Desactivar comentarios" ? "Activar comentarios" : "Desactivar comentarios";
+			});
 		});		
-		$("label.togle").click(function() {
+		$(".togle").click(function() {
 			object = $(this).data();
 			$.ajax({ type : "POST",url :base_url+"articles/updateOption",dataType : "json",data:{col:object.col,id_articulo:object.id_articulo}}).done(function(response) { 
 	           console.log(response);
@@ -228,7 +233,18 @@ admin = {
              }
         }); 
 	},
-	
+		
+	/* subscriptores */
+	initSub:function(){
+		$('#side-menu').metisMenu();		
+		$("[data-toggle='tooltip']").tooltip();
+		if ($(".fix:not([data-fixed='true'])").length) {
+			$.each($(".fix:not([data-fixed='true'])"), function(k, c) {
+				app.runFixTableHead($(this));
+			});
+		}		
+	}
+		
 };
 $(document).ready(function(){
 	$(window).bind("load resize", function() {

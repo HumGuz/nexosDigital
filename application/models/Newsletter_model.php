@@ -23,4 +23,12 @@ class Newsletter_model extends CI_Model {
 		$this->db->query("update t_newsletter_subscribers set status = 1,confirm_date = now() where confirm_code = '".trim($code)."' ");		
 	}
 	
+	
+	function getSubscriptores($data){
+		$res = $this->db->query("select * from t_newsletter_subscribers ");		
+		$res = $res->result_array();
+		return $res;
+	}
+	
+	
 }

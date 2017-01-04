@@ -20,7 +20,10 @@ login = {
             	 $("#login-form").sendForm(login.validationParams);
             });            
              $(".forget-modal").on('hidden.bs.modal',function(){
-            	 app.newsletterVal();
+            	   if(app.op==1)
+						app.newsletterVal();
+					else	
+						app.commentVal();
             });              
         });
     },  

@@ -10,9 +10,9 @@
 			</div> 
 			<div class="navigation" style="margin-top: 0px">
 				<ul>
-					<li>
+					<li class="">
 						<div id="TT_tWtxbBrxL8z98asUXAxE1k1E19nUTzc1keqWaipHcnV">Pronóstico de Tutiempo.net</div>
-						<script type="text/javascript" src="http://www.tutiempo.net/widget/eltiempo_tWtxbBrxL8z98asUXAxE1k1E19nUTzc1keqWaipHcnV"></script>						
+						<script type="text/javascript" src="https://www.tutiempo.net/widget/eltiempo_tWtxbBrxL8z98asUXAxE1k1E19nUTzc1keqWaipHcnV"></script>						
 					</li>
 					<li>
 						

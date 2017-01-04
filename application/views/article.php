@@ -20,39 +20,45 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				</div>				
 			</div>
 			<div class="col-md-7 single-content-left">
-				<div class="features-list">
+				<!-- <div class="features-list">
 					<h3>Features</h3>
 					<?php echo $features ?>
-				</div>				
+				</div>	 -->			
+				<?php if($article['info']['comments']): ?>
 				<div class="single">
 						<div class="leave">
 							<h4>Deja un comentario</h4>
 						</div>
-						<form id="commentform">
-							<p class="comment-form-author-name">
-								<label for="author">Nombre</label>
-								<input id="author" name="author" type="text" value="" size="30" aria-required="true">
-							</p>
-							<p class="comment-form-email">
-								<label for="email">Email</label>
-								<input id="email" name="email" type="text" value="" size="30" aria-required="true">
-							</p>							
-							<p class="comment-form-comment">
-								<label for="comment">Comentario</label>
-								<textarea></textarea>
-							</p>
+						<form id="commentform">							
+							<div class="form-group">
+							    <label for="nombre">Nombre</label>
+							    <input type="text" class="form-control" id="nombre" name="nombre" >
+							</div>
+							<div class="form-group ">
+							    <label for="nombre">Email</label>
+							    <input type="text" class="form-control" id="mail" name="mail" >
+							</div>	
+							<div class="form-group ">
+							    <label for="nombre">Comentario</label>
+							   <textarea id="comentario" name="comentario"></textarea>
+							</div>	
+							<div class="checkbox">
+							    <label>
+							      <input type="checkbox" name="newsletter" id="newsletter" value="1"> Subscribirme al boletín de noticias
+							    </label>
+							  </div>
 							<div class="clearfix"></div>
 							<p class="form-submit">
-								<input name="submit" type="submit" id="submit" value="Send">
+								<input name="submit" type="submit" id="submit" value="Enviar">
 							</p>
 							<div class="clearfix"></div>
 						</form>
-						
 						<div class="comments1">
 							<h4>COMENTARIOS</h4>
 							<?php echo $comments ?>
 						</div>
-					</div>
+				</div>
+				<?php else: echo "Los comentarios esta desactivados para este post."; endif; ?>
 			</div>			
 			<div class="col-md-5 content-right content-right-top">
 				<div class="content-right-top">
@@ -68,5 +74,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<?php include_once 'includes/footer.php'; ?>
 	<?php include_once 'includes/footer-scripts.php'; ?>
 	<?php include_once 'admin/login.php'; ?>		
+	<script>
+		$(document).ready(function() {  
+		    app.init(2);    
+		});
+	</script>
 </body>
 </html>

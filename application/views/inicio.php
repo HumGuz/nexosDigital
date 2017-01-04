@@ -35,6 +35,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</div>
 		<?php  include_once 'includes/footer.php'; ?>
 		<?php include_once 'includes/footer-scripts.php'; ?>		
-		<?php include_once 'admin/login.php'; ?>		
+		<?php include_once 'admin/login.php'; ?>
+		<script>
+			$(document).ready(function() {  
+			    app.init(1);    
+			});
+		</script>		
 </body>
 </html>

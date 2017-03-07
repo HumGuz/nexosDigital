@@ -23,11 +23,16 @@ app = {
 				},
 				success:function(obj){
 					 console.log(obj);					
-					 $.ajax({ type : "POST",url:base_url+'Comments/new',dataType : "json",data:obj}).done(function(res) {         
+					 $.ajax({ type : "POST",url:base_url+'Newsletter/guardarComentario',dataType : "json",data:obj}).done(function(res) {         
 			            console.log(res);
-			            if(res.status==1){
-			            	
-			            	
+			            if(res.status==1){			            	
+			            	if($(".empty-comments").length){
+			            		$(".empty-comments").after(res.comentario);
+			            		$(".empty-comments").remove();
+			            	}else{
+			            		$(".comments-main").eq(0).before(res.comentario);
+			            	}			            	
+			            	$("#commentform").resetForm();
 			            }else{
 			            	($("#commentform").validate()).showErrors(res);            
 				            $("#commentform input.invalid").each(function(k,e){

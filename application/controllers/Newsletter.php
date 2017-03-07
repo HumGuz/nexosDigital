@@ -1,20 +1,23 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+if(!session_id())
 session_start();
 class Newsletter extends CI_Controller {
 	public function __construct(){		
-		ini_set('display_errors', '1');		
-		error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+		// ini_set('display_errors', '1');		
+		// error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
     	parent::__construct();
 		$this->load->library('Mailer_class');
 		$this->load->model('Newsletter_model');
+		$this->load->model('Comments_model');
     }
-	function signup(){
-		if($this->input->is_ajax_request() && $this->input->post('request') =='signup'){
-			$data = $this->input->post();				
+	function signup($data=null){
+		
+			if($this->input->is_ajax_request() && $this->input->post('request') =='signup' && $data==null)
+				$data = $this->input->post();
+				
 			$data['confirm_code'] = $this->getCode();			  				
 			$result = $this->Newsletter_model->signup($data);	
-			
 			
 			if($result['status']==1){				
 				$_SESSION['register_mail'] = $data['mail'];				
@@ -70,7 +73,7 @@ class Newsletter extends CI_Controller {
 			}
 				
 			echo json_encode($result);			
-		}
+		
 	}
 
 	function getCode($length = 10) {
@@ -86,6 +89,53 @@ class Newsletter extends CI_Controller {
 	function replace($str){
 		return str_replace(array('á','é','í','ó','ú','Á','É','Í','Ó','Ú'), array('&aacute;','&eacute;','&iacute;','&oacute;','&uacute;','&Aacute;','&Eacute;','&Iacute;','&Oacute;','&Uacute;'), $str);
 	}
+
+
+	public function guardarComentario(){
+		$data = $this->input->post();
+		$res = $this->filtrar($data['comentario']);			
+		if(!$res)
+			return array('comentario'=>'El texto no puede contener insultos o palabras altisonantes');
+		if($data['newsletter']==1){
+			$res = $this->signup(array('nombre'=>$data['nombre'],'mail'=>$data['mail']));
+			return $res;
+		}
+			
+		$res = $this->Comments_model->guardarComentario($data);		
+		echo json_encode($res);		
+	}
+	
+	 function filtrar($txt){//Funcion detectadora de insultos	 
+			$ins = array(
+				'cabron',
+				'pinche',
+				'pendejo',
+				'guei',
+				'buey',
+				'wey',
+				'buei',
+				'puto',
+				'puta',
+				'idiota',
+				'imbecil',
+				'culo',
+				'teta',
+				'verga',
+				'pito',
+				'chingado',
+				'coger',
+				'cojer',
+				'nalgas'
+				);
+			$i = TRUE;
+			foreach ($ins as $insulto){		 
+				if(preg_match("/$insulto/i",$txt))
+					$i = FALSE;
+			}
+			return $i;
+		}
+
+
 
 }
 

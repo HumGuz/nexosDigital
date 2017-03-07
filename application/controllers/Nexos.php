@@ -15,10 +15,12 @@ class Nexos extends CI_Controller {
 			$info = $this->getInformation();			
 			$this->articles_model->infoCliente($info);
 			set_cookie("info",1,time()+60*60*24);
-		// }		
+		// }	
+		//vista general o filtrado por categorias	
 		if (($article == '' && $id == '') || ($article != '' && $id == '')) {
 			$this -> load -> view('inicio', array('recent' => $this -> articles_model -> getRecent(($article != '') ? array('id_categoria' => $article) : array()), 'popular' => $this -> articles_model -> getPopular(), 'editorsPick' => $this -> articles_model -> getEditorsPick(), 'categorias' => $this -> articles_model -> getCategorias()));
 		} else {
+			//vista de un articulo en especifico
 			$realIP = '';
 			if (!empty($_SERVER['HTTP_CLIENT_IP']))
 				$realIP = $_SERVER['HTTP_CLIENT_IP'];
@@ -27,7 +29,12 @@ class Nexos extends CI_Controller {
 			else
 				$realIP = $_SERVER['REMOTE_ADDR'];
 			$this -> load -> model('comments_model');
-			$this -> load -> view('article', array('article' => $this -> articles_model -> getArticle(array('id_articulo' => $id)), 'popular' => $this -> articles_model -> getPopular(), 'features' => $this -> articles_model -> getfeatures(), 'comments' => $this -> comments_model -> getComments(), 'editorsPick' => $this -> articles_model -> getEditorsPick(), 'categorias' => $this -> articles_model -> getCategorias()));
+			$comments = array();			
+			$article = $this -> articles_model -> getArticle(array('id_articulo' => $id));			
+			if($article['info']['comments']){
+				$comments = $this -> comments_model -> getComments(array('id_articulo' => $id));
+			}
+			$this -> load -> view('article', array('article' => $article, 'popular' => $this -> articles_model -> getPopular(), 'features' => $this -> articles_model -> getfeatures(), 'comments' => $comments, 'editorsPick' => $this -> articles_model -> getEditorsPick(), 'categorias' => $this -> articles_model -> getCategorias()));
 		}
 	}
 	

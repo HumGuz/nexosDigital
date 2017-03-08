@@ -52,7 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						</form>
 						<div class="comments1">
 							<h4>COMENTARIOS</h4>
-							<?php echo (!empty($comments))?$comentarios:'<p class="empty-comments">No se han escrito comentarios</p>' ?>
+							<?php echo (!empty($comments))?$comments:'<p class="empty-comments">No se han escrito comentarios</p>' ?>
 						</div>
 				</div>
 				<?php else: echo "Los comentarios esta desactivados para este post."; endif; ?>

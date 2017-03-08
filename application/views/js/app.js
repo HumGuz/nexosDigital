@@ -3,9 +3,7 @@ app = {
     init : function(op) {    	
     	app.op =op;    	       
         $("span.menu").click(function() {
-			$(".list-nav").slideToggle("slow", function() {
-				// Animation complete.
-			});
+			$(".list-nav").slideToggle("slow", function() {});
 		});
 		$("span.glyphicon-log-in").tooltip();
 		if(op==1)

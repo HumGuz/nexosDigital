@@ -54,12 +54,12 @@ class Articles_model extends CI_Model {
 		}
 		
 		function paginar($page,$cat,$caturl){								
-				$condition = '';
-				
+				$condition = '';				
 				//paginacion con categorias
 				//$route['cat/(:num)/(:any)/p/(:num)'] = 'nexos/index/catp/$1/$3/$2';
 				//paginacion normal
-				// $route['p/(:num)'] = 'nexos/index/p/0/$1';
+				// $route['p/(:num)'] = 'nexos/index/p/0/$1';				
+				$base_url_clean =  base_url().( ($cat)?'cat/'.$cat.'/'.$caturl.'/':'' ); 					
 				$base_url = base_url().( ($cat)?'cat/'.$cat.'/'.$caturl.'/p/':'p/' ); 	
 				$perPage = 5;				
 				if($cat)
@@ -68,64 +68,37 @@ class Articles_model extends CI_Model {
 					// return $sql;			
 				$res = $this->db->query($sql);		
 				$result =  $res->result_array();				
-				$todos = $result[0]['todos'];				
-				$paginasSiguientes = $todos - $page;
+				$todos = $result[0]['todos'];		
 				 $paginator = '';									
 				if( $todos > 5 ){					
-					$paginas = $todos / $perPage;	
-											
+					$paginas = ceil($todos / $perPage);	
+					$paginasFaltantes = $paginas - $page;						
 					$paginator = '';
 					if($paginas>=2){
 						$paginator .= '<div class="paginator">
 											<ul class="pager">';
 						if($page>1)
 							$paginator .= '  <li><a href="'.$base_url.($page-1).'" class="btn "><span class="glyphicon glyphicon-chevron-left"></span> Anterior</a></li>';
-						if($page!=$todos)	
+						if($page!=$paginas)	
 							$paginator .= '   <li><a href="'.$base_url.($page+1).'" class="btn ">Siguiente <span class="glyphicon glyphicon-chevron-right"></span> </a></li> ';
 						$paginator .= '</ul>
 									<nav aria-label="Page navigation" id="div1">
 										<ul class="pager">	';
 								if($page>1)
-									$paginator .= '<li><a href="'.$base_url.'1" class="btn ">« 1 ...</a></li>';								
-								
-								$page =  $page==0 ? 1 : $page ;
-								
+									$paginator .= '<li><a href="'.$base_url_clean.'" class="btn ">« 1 ...</a></li>';	
+								$page =  $page==0 ? 1 : $page ;								
 								$paginator .= '<li><a href="#" class="btn disabled">'.$page.'</a></li>';	
 								$page ++;		
-								for ($i=0; ($i < 5 && $paginasSiguientes > $i ); $i++) { 									
-									$paginator .= '<li><a href="'.$base_url.($page).'" class="btn ">'.$page.'</a></li>';
-									$paginasSiguientes--;
+								for ($i=0; ($i < 5 && $i < $paginasFaltantes ); $i++) { 									
+									$paginator .= '<li><a href="'.$base_url.($page).'" class="btn ">'.$page.'</a></li>';									
 									$page ++;		
-								}
-								if($paginasSiguientes>0)
-									$paginator .= '<li><a href="'.$base_url.($todos).'" class="btn ">... '.$todos.' »</a></li>';	
-							
+								}								
+								if($paginas>5)
+								$paginator .= '<li><a href="'.$base_url.($paginas).'" class="btn ">... '.$paginas.' »</a></li>';								
 								$paginator .="</ul></nav></div>";
 					}
-					// return '
-						// <div class="paginator">
-							// <ul class="pager">
-							  // <li><a href="#"><span class="glyphicon glyphicon-chevron-left"></span> Anterior</a></li>
-							  // <li><a href="#">Siguiente <span class="glyphicon glyphicon-chevron-right"></span> </a></li>
-							// </ul>						
-							// <nav aria-label="Page navigation" id="div1">
-							  // <ul class="pager">						    					    
-								// <li><a href="#" >« 1 ...</a></li>							
-							    // <li><a href="#" class="btn disabled">16</a></li>
-							    // <li><a href="#">17</a></li>
-							    // <li><a href="#">18</a></li>
-							    // <li><a href="#">19</a></li>
-							    // <li><a href="#">20</a></li>
-							    // <li><a href="#">... 756 »</a></li>
-							  // </ul>
-							// </nav>
-						// </div>';
-				}
-				
+				}				
 				return $paginator;
-				
-							
-				
 		}
 		
 		

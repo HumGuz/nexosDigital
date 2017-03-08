@@ -794,17 +794,18 @@ p.span a {
 	padding: 8px 15px;
 	width: 60%;
 	color: #444;
-	font-size: 1em;
+	font-size: 18px;
 	border: 1px solid #eee;
 	background: #eee;
 	outline: none;
 	display: block;
+	font-family: 'Times New Roman', Arial, Helvetica;
 }
 #commentform textarea {
 	padding: 13px 20px;
-	width:60%;
+	width:100%;
 	color: #444;
-	font-size:0.85em;
+	font-size:18px;
 	outline: none;
 	height:150px;
 	display: block;
@@ -812,6 +813,7 @@ p.span a {
 	font-weight:400;
 	border: 1px solid #eee;
 	background: #eee;
+	font-family: 'Times New Roman', Arial, Helvetica;
 }
 #commentform input[type="submit"] {
 	padding: 12px 50px;

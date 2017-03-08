@@ -3,7 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Comments_model extends CI_Model {
 		public function __construct(){
 			date_default_timezone_set("America/Mexico_City");
-	    	parent::__construct();			
+	    	parent::__construct();	
+			$this->load->library('app');		
 	    }
 		
 		function guardarComentario($data){	
@@ -11,7 +12,7 @@ class Comments_model extends CI_Model {
 			unset($data['newsletter']);
 			$data['fecha'] = date('Y-m-d H:i:s');
 		  	$this->db->insert('t_comentarios', $data);
-			return array('status' => 1,'comentario'=>$this->getComments(array('id_comentario'=>$this->_DB_WORK->insert_id())));
+			return array('status' => 1,'comentario'=>$this->getComments(array('id_comentario'=>$this->db->insert_id())));
 		}
 		
 		
@@ -46,33 +47,7 @@ class Comments_model extends CI_Model {
 						';
 				}
 			}
-	   		return $pop;	
-// 			
-			// return '
-// 					
-							// <div class="comments-main">
-								// <div class="col-md-3 cmts-main-left">
-									// <img src="'.base_url().'application/views/images/avatar.jpg" alt="">
-								// </div>
-								// <div class="col-md-9 cmts-main-right">
-									// <h5>MARK JOHNSON</h5>
-									// <p>
-										// Vivamus congue turpis in laoreet sem nec ultrices. Fusce blandit nunc vehicula massa vehicula tincidunt. Nam venenatis cursus urna sed gravida. Ut tincidunt elit ut quam malesuada consequat. Sed semper purus sit amet lorem elementum faucibus.
-									// </p>
-									// <div class="cmts">
-										// <div class="col-md-6 cmnts-left">
-											// <p>
-												// On April 14, 2014, 18:01
-											// </p>
-										// </div>
-// 									
-										// <div class="clearfix"></div>
-									// </div>
-								// </div>
-								// <div class="clearfix"></div>
-							// </div>
-// 			
-			// ';
+	   		return $pop;
 		}
 	
 	

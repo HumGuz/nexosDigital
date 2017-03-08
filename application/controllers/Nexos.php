@@ -17,7 +17,7 @@ class Nexos extends CI_Controller {
 			set_cookie("info",1,time()+60*60*24);
 		
 		
-		if($arti_p=='a'){
+		if($tipo=='a'){
 			//vista de un articulo en especifico
 			$realIP = '';
 			if (!empty($_SERVER['HTTP_CLIENT_IP']))
@@ -28,9 +28,9 @@ class Nexos extends CI_Controller {
 				$realIP = $_SERVER['REMOTE_ADDR'];
 			$this -> load -> model('comments_model');
 			$comments = array();			
-			$article = $this -> articles_model -> getArticle(array('id_articulo' => $id));			
-			if($article['info']['comments']){
-				$comments = $this -> comments_model -> getComments(array('id_articulo' => $id));
+			$article = $this -> articles_model -> getArticle(array('id_articulo' => $id_categoria));			
+			if($article['info']['comments']==1){
+				$comments = $this -> comments_model -> getComments(array('id_articulo' => $id_categoria));
 			}			
 			$this -> load -> view('article', array('article' => $article, 'popular' => $this -> articles_model -> getPopular(), 'comments' => $comments, 'editorsPick' => $this -> articles_model -> getEditorsPick(), 'categorias' => $this -> articles_model -> getCategorias()));
 	    }else{

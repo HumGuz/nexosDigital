@@ -10,15 +10,13 @@ class Newsletter extends CI_Controller {
 		$this->load->library('Mailer_class');
 		$this->load->model('Newsletter_model');
 		$this->load->model('Comments_model');
-    }
-	function signup($data=null){
 		
+    }
+	function signup($data=null){		
 			if($this->input->is_ajax_request() && $this->input->post('request') =='signup' && $data==null)
-				$data = $this->input->post();
-				
+				$data = $this->input->post();				
 			$data['confirm_code'] = $this->getCode();			  				
-			$result = $this->Newsletter_model->signup($data);	
-			
+			$result = $this->Newsletter_model->signup($data);				
 			if($result['status']==1){				
 				$_SESSION['register_mail'] = $data['mail'];				
 				$mail = new PHPMailer();
@@ -70,8 +68,7 @@ class Newsletter extends CI_Controller {
 				}else{
 					$result = array('status'=>1);
 				}
-			}
-				
+			}				
 			echo json_encode($result);			
 		
 	}
@@ -93,23 +90,43 @@ class Newsletter extends CI_Controller {
 
 	public function guardarComentario(){
 		$data = $this->input->post();
-		$res = $this->filtrar($data['comentario']);			
-		if(!$res)
-			return array('comentario'=>'El texto no puede contener insultos o palabras altisonantes');
-		if($data['newsletter']==1){
-			$res = $this->signup(array('nombre'=>$data['nombre'],'mail'=>$data['mail']));
-			return $res;
+		$resc = $this->filtrar($data['comentario']);			
+		if(!$resc){
+			echo json_encode(array('comentario'=>'El texto no puede contener insultos o palabras altisonantes'));	
+			die();
 		}
 			
-		$res = $this->Comments_model->guardarComentario($data);		
+		// if($data['newsletter']==1){
+			// $res = $this->signup(array('nombre'=>$data['nombre'],'mail'=>$data['mail']));
+			// return $res;
+		// } 			
+		$res = $this->Comments_model->guardarComentario($data);	
 		echo json_encode($res);		
 	}
 	
 	 function filtrar($txt){//Funcion detectadora de insultos	 
 			$ins = array(
 				'cabron',
+				'cabrona',
+				'cabronas',
+				'putito',
+				'pinche',
+				'perra',
+				'mierda',
+				'cagada',
+				'caga',
 				'pinche',
 				'pendejo',
+				'pendeja',
+				'pendejos',
+				'pendejas',
+				'pendejisimo',
+				'reputa',
+				'reputos',
+				'recabron',
+				'mamon',
+				'mamasita',
+				'maricon',
 				'guei',
 				'buey',
 				'wey',

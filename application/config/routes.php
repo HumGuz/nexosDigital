@@ -55,7 +55,7 @@ $route['translate_uri_dashes'] = FALSE;
 //ver articulo
 $route['(:num)/(:any)'] = 'nexos/index/a/$1';
 //filtro de categorias
-$route['cat/(:num)/(:any)'] = 'nexos/index/c/$1';
+$route['cat/(:num)/(:any)'] = 'nexos/index/c/$1/0/$2';
 //paginacion normal
 $route['p/(:num)'] = 'nexos/index/p/0/$1';
 //paginacion con categorias

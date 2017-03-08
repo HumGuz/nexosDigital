@@ -36,7 +36,7 @@
 						$cats = '';
 						if(!empty($categorias)){							
 							foreach ($categorias as $key => $c) {
-								$cats .= ' <li><a href="'.base_url().'categoria/'.$c['id_categoria'].'">'.$c['nombre'].'</a></li> |';
+								$cats .= ' <li><a href="'.base_url().'cat/'.$c['id_categoria'].'/'.((app::poner_guion($c['nombre']))).'">'.$c['nombre'].'</a></li> |';
 							}						
 						}	
 						echo  trim($cats,'|');				

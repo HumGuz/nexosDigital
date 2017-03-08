@@ -10,16 +10,14 @@ class Nexos extends CI_Controller {
 		$this->load->library('app');
 	}
 
-	function index($article = '', $id = ''){		
-		// if($_COOKIE['info']!=1){
+	function index($tipo = '', $id_categoria = '',$page = 0,$caturl=''){		
+		
 			$info = $this->getInformation();			
 			$this->articles_model->infoCliente($info);
 			set_cookie("info",1,time()+60*60*24);
-		// }	
-		//vista general o filtrado por categorias	
-		if (($article == '' && $id == '') || ($article != '' && $id == '')) {
-			$this -> load -> view('inicio', array('recent' => $this -> articles_model -> getRecent(($article != '') ? array('id_categoria' => $article) : array()), 'popular' => $this -> articles_model -> getPopular(), 'editorsPick' => $this -> articles_model -> getEditorsPick(), 'categorias' => $this -> articles_model -> getCategorias()));
-		} else {
+		
+		
+		if($arti_p=='a'){
 			//vista de un articulo en especifico
 			$realIP = '';
 			if (!empty($_SERVER['HTTP_CLIENT_IP']))
@@ -33,8 +31,11 @@ class Nexos extends CI_Controller {
 			$article = $this -> articles_model -> getArticle(array('id_articulo' => $id));			
 			if($article['info']['comments']){
 				$comments = $this -> comments_model -> getComments(array('id_articulo' => $id));
-			}
-			$this -> load -> view('article', array('article' => $article, 'popular' => $this -> articles_model -> getPopular(), 'features' => $this -> articles_model -> getfeatures(), 'comments' => $comments, 'editorsPick' => $this -> articles_model -> getEditorsPick(), 'categorias' => $this -> articles_model -> getCategorias()));
+			}			
+			$this -> load -> view('article', array('article' => $article, 'popular' => $this -> articles_model -> getPopular(), 'comments' => $comments, 'editorsPick' => $this -> articles_model -> getEditorsPick(), 'categorias' => $this -> articles_model -> getCategorias()));
+	    }else{
+			$pagination = $this-> articles_model -> paginar($page,$id_categoria,$caturl);
+			$this -> load -> view('inicio', array('recent' => $this -> articles_model -> getRecent(array('id_categoria' => $id_categoria),$page), 'popular' => $this -> articles_model -> getPopular(), 'editorsPick' => $this -> articles_model -> getEditorsPick(), 'categorias' => $this -> articles_model -> getCategorias(),'pagination'=>$pagination));
 		}
 	}
 	

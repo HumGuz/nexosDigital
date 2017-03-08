@@ -16,6 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<div class="content">
 			<div class="col-md-7 content-left">
 				<?php echo $recent; ?>
+				<?php echo $pagination; ?>
 			</div>
 			<div class="col-md-5 content-right">
 				<div class="content-right-top">					

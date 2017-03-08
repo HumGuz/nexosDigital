@@ -19,11 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<?php echo $article['article'] ?>
 				</div>				
 			</div>
-			<div class="col-md-7 single-content-left">
-				<!-- <div class="features-list">
-					<h3>Features</h3>
-					<?php echo $features ?>
-				</div>	 -->			
+			<div class="col-md-7 single-content-left">						
 				<?php if($article['info']['comments']): ?>
 				<div class="single">
 						<div class="leave">

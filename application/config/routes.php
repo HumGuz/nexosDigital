@@ -52,6 +52,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'nexos';
 $route['404_override'] = 'not_found_404';
 $route['translate_uri_dashes'] = FALSE;
-$route['(:num)/(:any)'] = 'nexos/index/$2/$1';
-$route['categoria/(:num)'] = 'nexos/index/$1';
+//ver articulo
+$route['(:num)/(:any)'] = 'nexos/index/a/$1';
+//filtro de categorias
+$route['cat/(:num)/(:any)'] = 'nexos/index/c/$1';
+//paginacion normal
+$route['p/(:num)'] = 'nexos/index/p/0/$1';
+//paginacion con categorias
+$route['cat/(:num)/(:any)/p/(:num)'] = 'nexos/index/catp/$1/$3/$2';
 

@@ -1512,11 +1512,20 @@ p.span a {
 		font-weight: 400;
 		margin: 0.2em auto; 
 		font-family: 'Antonio-Regular';
-		 width: 80%;
-		 text-align: center;
+		width: 80%;
+		text-align: center;
 	}
 	
 	#newsletterForm{
 		width: 80% ;
 		 margin:0px auto;
 	}
+	
+	.paginator a{
+	    color: #798184;
+	    font-size: 1em;
+	    font-weight: 400;
+	    font-family: Helvetica, sans-serif;
+	    margin:2px;
+	}
+	

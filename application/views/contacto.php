@@ -14,71 +14,86 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<?php include_once 'includes/menu.php'; ?>
 	<div class="container">
 		<div class="content">
-			
-			
 			<div class="contact-section">
 					<h3 class="c-head">Contactanos</h3>
 					<div class="singel_right">
 						<div class="lcontact span_1_of_contact">
-							<div class="contact-form">
-								<form method="post" action="">
-									<p class="comment-form-author">
-										<label for="author">Tu nombre:</label>
-										<input type="text" class="textbox" placeholder="¿Cual es tu nombre?..." >
-									</p>
-									<p class="comment-form-author">
-										<label for="author">Email:</label>
-										<input type="text" class="textbox" placeholder="Captura aqui tu correo electronico..." >
-									</p>
-									<p class="comment-form-author">
-										<label for="author">Mensaje:</label>
-										<textarea placeholder="Captura aqui tus comentarios..." ></textarea>
-									</p>
-									<input name="submit" type="submit" id="submit" value="Submit">
+							<div class="contact-form" style="padding: 0px 15px">
+								<form id="contacto-Form">
+									 <div class="form-group">
+									    <label for="nombre" class="control-label" >Nombre</label>
+									    <input type="text" class="form-control required" id="nombre"  name="nombre" >
+									  </div>
+									 <div class="form-group">
+									    <label for="mail" class="control-label" >Correo electrónico</label>
+									    <input type="text" class="form-control required"  id="mail"  name="mail" >
+									  </div>
+									  
+									  <div class="row">									  
+									  	<div class="col-sm-4">
+									  		 <div class="form-group">
+											    <label for="edad" class="control-label" >Edad</label>
+											    <input type="text" class="form-control required number"  id="edad"  name="edad" >
+											 </div>
+									  	</div>
+									  	<div class="col-sm-8">									  		
+									  		 <label for="sexo" class="control-label" >Sexo</label>
+									  		<div class="col-sm-6">
+									  			<div class="radio">
+												  <label>
+												    <input type="radio" name="sexo" id="masculino" value="m" checked>
+												    Masculino
+												  </label>
+												</div>
+									  		</div>
+									  		<div class="col-sm-6">
+									  			<div class="radio">
+												  <label>
+												    <input type="radio" name="sexo" id="femenino" value="f">
+												    Femenino
+												  </label>
+												</div>
+									  		</div>
+									  	</div>
+									  </div>
+									 	
+									 <div class="form-group">
+									    <label for="asunto" class="control-label" >Asunto</label>
+									    <input type="text" class="form-control required"  id="asunto"  name="asunto" >
+									 </div>									 
+									 
+									 <div class="form-group">
+									    <label for="comentario" class="control-label" >Comentarios</label>
+									    <textarea placeholder="Captura aqui tus comentarios..." class="form-control required"  id="comentario"  name="comentario" ></textarea>
+									 </div>
+									 <div class="checkbox">
+									    <label>
+									      <input type="checkbox" name="newsletter" id="newsletter" value="1" checked="checked"> Subscribirme al boletín de noticias
+									    </label>
+									  </div>
+									 <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-send"></span> Enviar</button>
+									 <button onclick="$('#contacto-Form').resetForm()" type="button" class="btn btn-default">Limpiar</button>
 								</form>
 							</div>
 						</div>
 						<div class="contact_grid span_2_of_contact_right">
 							<h3>Dirección</h3>
-							<div class="address">
-								<i class="pin_icon"></i>
-								<div class="contact_address">
-									Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="address">
-								<i class="phone"></i>
-								<div class="contact_address">
-									1-25-2568-897
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="address">
-								<i class="mail"></i>
-								<div class="contact_email">
-									<a href="mailto:contacto@nexosdigital.mx">contacto@nexosdigital.mx</a>
-								</div>
-								<div class="clearfix"></div>
-							</div>
+							<iframe width="100%" height="400px" frameborder="0" style="border:0"src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJERXX1XhVKIQRyH15i5n_iSM&key=AIzaSyAlKD1xLAm_0fsJRHbr-AZyjfxvNoiV8rM" allowfullscreen></iframe>
+							<h3 style="margin: 0px">Celular</h3>
+							<p class="text-danger bold">346-102-0780</p>
 						</div>
 						<div class="clearfix"></div>
-					</div>
-					<!-- <div class="map">
-						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387144.007583421!2d-73.97800349999999!3d40.7056308!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew+York%2C+NY%2C+USA!5e0!3m2!1sen!2sin!4v1413440825630" frameborder="0" style="border:0"></iframe>
-					</div> -->
+					</div>					
 				</div>
-
-		
-			
-			
-			
-			
-							
 		</div>
 	</div>
 		<?php  include_once 'includes/footer.php'; ?>
 		<?php include_once 'includes/footer-scripts.php'; ?>		
-		<?php include_once 'admin/login.php'; ?>		
+		<?php include_once 'admin/login.php'; ?>	
+		<script>
+			$(document).ready(function() {  
+			    app.init(3);    
+			});
+		</script>		
 </body>
 </html>

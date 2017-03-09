@@ -8,8 +8,10 @@ app = {
 		$("span.glyphicon-log-in").tooltip();
 		if(op==1)
 			app.newsletterVal();
-		else	
+		else if(op==2)	
 			app.commentVal();
+		else
+			app.contactVal();
     }, 
     commentVal:function(){
     	$("#commentform").sendForm({
@@ -60,13 +62,24 @@ app = {
 			            	($("#newsletterForm").validate()).showErrors(res);            
 				            $("#newsletterForm input.invalid").each(function(k,e){app.unsetInvalid(this);});    
 			            }
-			        }).fail(function( jqXHR, textStatus, errorThrown ) {				
-							console.log(jqXHR,textStatus,errorThrown);
-					});
+			        }).fail(function( jqXHR, textStatus, errorThrown ) {console.log(jqXHR,textStatus,errorThrown);});
 				}
 			})	
     },
-     
+    contactVal:function(){
+    	$("#contacto-Form").sendForm({
+				request:'contact',			
+				rules:{email:{email:true},edad:{number:true}},
+				success:function(obj){
+					 console.log(obj);		
+					 return 0;			
+					 $.ajax({ type : "POST",url:base_url+'Contacto/guardarComentarios',dataType : "json",data:obj}).done(function(res) {  
+			            if(res.status==1)			            	
+			            	location.href = base_url+'Contacto/gracias';
+			        }).fail(function( jqXHR, textStatus, errorThrown ) {console.log(jqXHR,textStatus,errorThrown);});
+				}
+			})	
+    },
 	unsetInvalid:function(el) {
 		id = $(el).attr('id');
 		if ($("#" + id).hasClass('selectpicker'))

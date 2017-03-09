@@ -28,17 +28,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<form id="commentform">		
 							  <input type="hidden"  id="id_articulo" name="id_articulo" value="<?php echo $article['info']['id_articulo'] ?>">					
 							<div class="form-group">
-							    <label for="nombre">Nombre</label>
+							    <label for="nombre"  class="control-label">Nombre</label>
 							    <input type="text" class="form-control" id="nombre" name="nombre" >
 							</div>
 							<div class="form-group ">
-							    <label for="nombre">Email</label>
+							    <label for="nombre"  class="control-label">Email</label>
 							    <input type="text" class="form-control" id="mail" name="mail" >
-							</div>	
-							<div class="form-group ">
-							    <label for="nombre">Comentario</label>
-							   <textarea id="comentario" name="comentario"></textarea>
-							</div>	
+							</div>								
+							<div class="form-group">
+								<label for="comentario" class="control-label" >Comentarios</label>
+								 <textarea placeholder="Captura aqui tus comentarios..." class="form-control required"  id="comentario"  name="comentario" ></textarea>
+							 </div>
+							
+							
 							<div class="checkbox">
 							    <label>
 							      <input type="checkbox" name="newsletter" id="newsletter" value="1" checked="checked"> Subscribirme al boletín de noticias
@@ -46,7 +48,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							  </div>
 							<div class="clearfix"></div>
 							<p class="form-submit">
-								<input name="submit" type="submit" id="submit" value="Enviar" >
+								 <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-send"></span> Enviar</button>
 							</p>
 							<div class="clearfix"></div>
 						</form>

@@ -1,5 +1,4 @@
 (function($) {
-	
 	$.extend($.validator.messages, {
 		required: "Este campo es obligatorio.",
 		remote: "Por favor, rellena este campo.",
@@ -22,14 +21,8 @@
 		nieES: "Por favor, escribe un NIE válido.",
 		cifES: "Por favor, escribe un CIF válido."
 	});
-	
-	
 	$.fn.sendForm = function(object) {
-		
-		if(!$(this).length)
-			return 0;
 		defaults = {
-			invalid_char_list : ['"', '!', '#', '$', '%', '&', '/', '(', ')', '=', '?', '¡', "'", '*', '+', '´', '¨', '~', '^', '@', '{', '}', ' ', '|', '¬', '°', '[', ']', ',', '.'],
 			errorList : [],
 			form_data : {},
 			id_form : '#' + $(this).attr('id'),
@@ -41,69 +34,89 @@
 			success : function(form_data) {
 			},
 			invalidHandler:function(events, validator) {				
-				 console.log(validator);
 				$('.help-block').remove();
 				$('.has-error').removeClass('has-error');
 				$('.red.btn-outline').removeClass('red btn-outline').addClass('btn-default');
-				$.each(validator.invalid, function(id, msj) {
-					if ($("#" + id).hasClass('selectpicker'))
-						$("button[data-id='" + id + "']").removeClass('btn-default').addClass('red btn-outline').click(function() {
-							$(this).removeClass('red btn-outline').addClass('btn-default');
-						});
-					$("#" + id).parents('.form-group').eq(0).addClass('has-error').on('click focus focusin focusout',function() {							
-						$("#" + id).parents('.form-group').eq(0).removeClass('has-error').find('.help-block').remove();
-					});
-				});
+				 $.each(validator.invalid, function(id, msj) {				 	 
+				 	 if($("#" + id).hasClass('selectpicker'))				 	 
+				 	 	$("button[data-id='"+id+"']").removeClass('btn-default').addClass('red btn-outline').click(function(){
+				 	 		$(this).removeClass('red btn-outline').addClass('btn-default');				 	 		
+				 	 	});					 	 	
+				 	 	mt = 0;
+				 	 	if($("#" + id).parents('.form-group').hasClass('form-md-line-input')){				 	 		
+				 	 		halp = $("#" + id).parents('.form-group').eq(0).find('.help-block')
+	                        if(halp.length)
+	                        	halp.text('msj');
+	                        else
+	                         $("#" + id).after(' <span class="help-block">'+msj+'</span>');
+	                          // $("#" + id).parents('.form-group').eq(0).append(' <span class="help-block">'+msj+'</span>');
+	                        mt = 1;
+				 	 	}		 	
+					 	$("#" + id).parents('.form-group').eq(0).addClass('has-error').click(function(){				 	 		
+				 	 		if(mt)
+				 	 			$("#" + id).parents('.form-group').eq(0).removeClass('has-error').find('.help-block').remove();
+				 	 		else{
+				 	 			$("#" + id).parents('.form-group').eq(0).removeClass('has-error');
+				 	 			$("#"+id+"-error").remove();
+				 	 		}				 	 		
+				 	 	});
+				 });				
 			}
 		};
-		$.extend(defaults, object);
-		
+		options = $.extend({},defaults, object);
+		$(this).data('options',options);		
 		validateConfig = {
 			debug : true,
-			submitHandler : function(form) {
-				form = defaults.id_form;
+			submitHandler : function(form) {				
+				options = $(form).data('options');				
+				form = options.id_form;
 				$(form).find('.error-label').remove();
 				$(form).find('.has-error').removeClass('has-error');
-				defaults.errorList = [];				
-				defaults.form_data = {
-					request : defaults.request
+				options.errorList = [];				
+				options.form_data = {
+					request : options.request
 				}; 
-				$(form).find('input[type="email"],input[type="text"],input[type="password"],input[type="hidden"],input[type="number"],textarea,select').each(function(k, element) {
+				$(form).find('input[type="text"],input[type="password"],input[type="hidden"],input[type="number"],textarea,select').each(function(k, element) {
 					if(element.id && element.id !='')
-						defaults.form_data[element.id] = $(element).val();				
+						options.form_data[element.id] = $(element).val();				
 				});
-				$(form).find('input[type="radio"]:checked,input[type="checkbox"]:checked').each(function(k, element) {
-					if(element.name && element.name !='')
-						defaults.form_data[element.name] = $(element).val();
-				});
-				$.extend(defaults.form_data, defaults.extend);
+				$(form).find('input[type="radio"]:checked').each(function(k, element) {
+					if(element.name && element.name !=''){
+						options.form_data[element.name] = $(element).val();
+					}						
+				});				
+				$(form).find('input[type="checkbox"]:checked').each(function(k, element) {                   
+                    if($(form).find('input[name="'+element.name+'"]').length==1){
+                    	options.form_data[element.name] = $(element).val();
+                    }else{
+                    	if(!options.form_data[element.name])
+	                        options.form_data[element.name] = [];                    
+	                    options.form_data[element.name].push($(element).val());
+                    }
+                });
+				$.extend(options.form_data, options.extend);
 				$('.error-label').remove();
 				$('.help-block').remove();
                 $('.has-error').removeClass('has-error');
-                if(defaults.form_data.trim!='' && defaults.form_data.trim){  
+                if(options.form_data.trim!='' && options.form_data.trim){  
                 	aux = {};		
-					$.each(defaults.form_data,function(k,v){			
-						aux[(k.replace(defaults.form_data.trim,''))] = v;			
+					$.each(options.form_data,function(k,v){			
+						aux[(k.replace(options.form_data.trim,''))] = v;			
 					});		
-					defaults.form_data = aux;	
+					options.form_data = aux;	
                 }	
-				defaults.success(defaults.form_data);				
+				options.success(options.form_data);				
 			},
-			rules : defaults.rules,
-			messages : defaults.messages,
+			rules : options.rules,
+			messages : options.messages,
 			focusInvalid : false,
 			onfocusout : false,
 			ignore : ".ignore",
-			errorClass :'invalid',
-			invalidHandler : defaults.invalidHandler,
-			showErrors: defaults.showErrors,
-			showLabel:defaults.showLabel
+			invalidHandler : options.invalidHandler,
+			showErrors: options.showErrors,
+			showLabel:options.showLabel
 		};	
-		var validator = $(this).validate(validateConfig);
-		return validator;
+		$(this).validate(validateConfig);
+		return $(this);
 	}
 })(jQuery);
-
-
-
-

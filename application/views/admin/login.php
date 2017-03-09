@@ -15,7 +15,7 @@
 					                    <form role="form" action="javascript:;" method="post" id="login-form" autocomplete="off">
 					                        <div class="form-group">
 					                            <label class="control-label" for="email" >Email</label>
-					                            <input type="email" name="email" id="email" class="form-control" placeholder="alguien@ejemplo.com">
+					                            <input type="text" name="email" id="email" class="form-control" placeholder="alguien@ejemplo.com">
 					                        </div>
 					                        <div class="form-group">
 					                            <label class="control-label" for="key">Contraseña</label>

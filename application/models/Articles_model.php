@@ -40,7 +40,7 @@ class Articles_model extends CI_Model {
 						$pop .= '			
 							<div class="article">
 								'.(($key==0)?'<h5 class="head">En noticias recientes</h5>':'').'
-								<h6>[ '.$limit.' ]  [ '.$r['id_articulo'].' ] '.$r['categoria'].'</h6>
+								<h6>'.$r['categoria'].'</h6>
 								<a class="title" href="'.base_url().$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'" >'.$r['nombre'].'</a>
 								<a href="'.base_url().$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'"><img src="'.(app::encodeImg(base_url().'application/views/images/'.$r['imagen'])).'" alt="" /></a>
 								'.$r['resumen'].'

@@ -16,15 +16,7 @@ login = {
     },
     init:function(){
         $(document).ready(function(){
-            $(".forget-modal").on('show.bs.modal',function(){
-            	 $("#login-form").sendForm(login.validationParams);
-            });            
-             $(".forget-modal").on('hidden.bs.modal',function(){
-            	   if(app.op==1)
-						app.newsletterVal();
-					else	
-						app.commentVal();
-            });              
+            $("#login-form").sendForm(login.validationParams);      
         });
     },  
     sendData : function(object) {

@@ -104,6 +104,52 @@ class App {
 		return 'data:image/' . $type . ';base64,' . base64_encode($data);
 	}
 	
-	
+	public static  function filtrar($txt){//Funcion detectadora de insultos	 
+			$ins = array(
+				'cabron',
+				'cabrona',
+				'cabronas',
+				'putito',
+				'pinche',
+				'perra',
+				'mierda',
+				'cagada',
+				'caga',
+				'pinche',
+				'pendejo',
+				'pendeja',
+				'pendejos',
+				'pendejas',
+				'pendejisimo',
+				'reputa',
+				'reputos',
+				'recabron',
+				'mamon',
+				'mamasita',
+				'maricon',
+				'guei',
+				'buey',
+				'wey',
+				'buei',
+				'puto',
+				'puta',
+				'idiota',
+				'imbecil',
+				'culo',
+				'teta',
+				'verga',
+				'pito',
+				'chingado',
+				'coger',
+				'cojer',
+				'nalgas'
+				);
+			$i = TRUE;
+			foreach ($ins as $insulto){		 
+				if(preg_match("/$insulto/i",$txt))
+					$i = FALSE;
+			}
+			return $i;
+		}
 }
 ?> 

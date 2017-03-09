@@ -6,7 +6,7 @@ class Comments_model extends CI_Model {
 	    	parent::__construct();	
 			$this->load->library('app');		
 	    }
-		
+		//comentarios de articulos
 		function guardarComentario($data){	
 		  	unset($data['request']);
 			unset($data['newsletter']);
@@ -14,7 +14,24 @@ class Comments_model extends CI_Model {
 		  	$this->db->insert('t_comentarios', $data);
 			return array('status' => 1,'comentario'=>$this->getComments(array('id_comentario'=>$this->db->insert_id())));
 		}
+		//formulario de contacto a la pagina
+		function guardarComentarios($data){	
+		  	unset($data['request']);
+			unset($data['newsletter']);
+			$data['fecha'] = date('Y-m-d H:i:s');
+			$data['status'] = 1;
+		  	$this->db->insert('t_contactos', $data);
+			return array('status' => 1);
+		}
 		
+		function getMensajes($data){			
+			$condition = '';
+			if($data['id_contacto'])
+				$condition .= " and id_contacto = ".$data['id_contacto'];	
+			$res = $this->db->query("select * from t_contactos where 1=1 ".$condition." order by fecha desc");			
+			$result =  $res->result_array();			
+	   		return $result;
+		}
 		
 		function getComments($data){			
 			$condition = '';

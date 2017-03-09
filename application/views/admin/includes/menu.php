@@ -40,6 +40,9 @@
                         <li>
                             <a href="<?php echo base_url(); ?>admin/categorias/"><i class="glyphicon glyphicon-th fa-fw"></i> Categorías</a>
                         </li>
+                         <li>
+                            <a href="<?php echo base_url(); ?>admin/mensajes/"><i class="fa fa-envelope-o" aria-hidden="true"></i> Mensajes</a>
+                        </li>
                         <li>
                             <a href="<?php echo base_url(); ?>admin/subscriptores/"><i class="glyphicon glyphicon-user fa-fw"></i> Subscriptores</a>
                         </li>

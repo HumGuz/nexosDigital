@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>Mensajes</title>
+    <?php include_once 'includes/header-styles.php'; ?>    
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <?php include_once 'includes/menu.php'; ?>
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header" style="    margin: 5px 0 10px;">Mensajes</h1>
+                </div>
+            </div>           
+           <?php  
+		    if(!empty($mensajes)){            
+		        ?>
+		             <table id="tbl_items-list" class="table table-bordered table-condensed fix" data-set-width="false" data-fixed="false" data-height="200" data-max-width="1300" style="font-size: 12px">
+		               <thead>
+		                <tr class="middle" align="center">
+		                	<td width="90px"><strong> Fecha </strong></td>    
+		                    <td width="200px"><strong> Nombre  </strong></td>
+		                    <td width="200px">Email</td> 
+		                    <td width="50px">Edad</td>   
+		                    <td width="100px">Sexo</td>    
+		                    <td width="150px">Asunto</td>    
+		                    <td ><strong>Comentario</strong></td>  
+		                </tr>
+		              </thead>               
+		             <?php
+		               	include_once 'includes/tblMensajes.php';  
+		             ?>
+		        </table>
+		<?php      
+		     }else{
+		        echo '<div class="alert alert-warning" role="alert"><strong><span class="glyphicon glyphicon-exclamation-sign"></span> No hay información para mostrar</strong>
+		                <br>
+		                <p style="font-size:12px">
+		                Compruebe lo siguiente:<br>
+		                - Comprueba que este modulo ya cuente con registros.<br>
+		                - Asegúrate de que todas las palabras en el filtro estén escritas correctamente.<br>
+		                </p>        
+		             </div>';
+		    }
+		?>
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    
+    <div id="nuevaN" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
+	  <div class="modal-dialog " role="document">
+	    <div class="modal-content ">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Nueva categoría</h4>
+	      </div>
+	      <div class="modal-body">
+	       	<form id="nvaP-form">
+	       		
+	       		 <div class="form-group">
+				    <label class="control-label"  for="nombre">Nombre</label>
+				    <input type="text" class="form-control required" id="nombre" name="nombre">
+				 </div>
+	       		 
+	       		 <div class="form-group">
+				    <label class="control-label"  for="nombre">Descripción </label>
+				    <input type="text" class="form-control required" id="descripcion" name="descripcion">
+				 </div>	
+				
+	       	 	</form> 	
+	      </div>
+	      <div class="modal-footer">
+	      	 <button type="submit" class="btn btn-success" id="btn-save" onclick="$('#nvaP-form').submit()"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+   
+	<?php include_once 'includes/footer-scripts.php'; ?>
+     <script>
+     	admin.initCat();
+     </script>
+     
+</html>

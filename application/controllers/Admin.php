@@ -9,22 +9,22 @@ class Admin extends CI_Controller {
 	    }
     	$this->load->model('articles_model');		
 		$this->load->model('Newsletter_model');		
+		$this->load->model('Comments_model');		
     }	
 	function dashboard(){
 		$this->load->view('admin/dashboard' );
-	}
-	
+	}	
 	function articles(){
 		$this->load->view('admin/articles',array('articulos'=>$this->articles_model->listArticles(),'categorias'=>$this->articles_model->getCategorias()) );
-	}
-	
-	
+	}	
 	function categorias(){
 		$this->load->view('admin/categorias',array('categorias'=>$this->articles_model->getCategorias()) );
-	}
-	
+	}	
 	function subscriptores(){
 		$this->load->view('admin/subscriptores',array('subscriptores'=>$this->Newsletter_model->getSubscriptores()) );
+	}
+	function mensajes(){
+		$this->load->view('admin/mensajes',array('mensajes'=>$this->Comments_model->getMensajes()) );
 	}
 	
 }

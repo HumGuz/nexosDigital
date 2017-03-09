@@ -57,7 +57,10 @@ app = {
 					 $.ajax({ type : "POST",url:base_url+'Newsletter/signup',dataType : "json",data:obj}).done(function(res) {         
 			            console.log(res);
 			            if(res.status==1){
-			            	location.href = base_url+'nexos/bienvenido';
+			            	if(obj.newsletter==1)
+			            		location.href = base_url+'nexos/bienvenido';
+			            	else
+			            		location.href = base_url+'nexos/gracias';
 			            }else{
 			            	($("#newsletterForm").validate()).showErrors(res);            
 				            $("#newsletterForm input.invalid").each(function(k,e){app.unsetInvalid(this);});    
@@ -71,9 +74,9 @@ app = {
 				request:'contact',			
 				rules:{email:{email:true},edad:{number:true}},
 				success:function(obj){
-					 console.log(obj);		
-					 return 0;			
-					 $.ajax({ type : "POST",url:base_url+'Contacto/guardarComentarios',dataType : "json",data:obj}).done(function(res) {  
+					 console.log(obj);	
+					 $.ajax({ type : "POST",url:base_url+'Contacto/guardarComentarios',dataType : "json",data:obj}).done(function(res) { 
+					 	console.log(res); 
 			            if(res.status==1)			            	
 			            	location.href = base_url+'Contacto/gracias';
 			        }).fail(function( jqXHR, textStatus, errorThrown ) {console.log(jqXHR,textStatus,errorThrown);});

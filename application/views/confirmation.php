@@ -15,8 +15,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<div class="container">
 		<div class="content">
 			<!--404-->
-			<div class="error">
-				<div class="error-head">
+			<div class="error-404">
+				<div class="error-404-head">
 					<h1 style="    font-size: 3em;"><span>¡Cuenta de correo confirmada!</span></h1>
 					<h2 style="    font-size: 1.2em;">De ahora en adelante  podras recibir las publicaciones mas importantes de Nexos Digital.</h2>
 					<a class="hvr-bounce-to-left button" href="<?php echo base_url(); ?>">ir al inicio</a>

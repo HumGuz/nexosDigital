@@ -6,8 +6,7 @@ class Newsletter extends CI_Controller {
 	public function __construct(){		
 		// ini_set('display_errors', '1');		
 		// error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
-    	parent::__construct();
-		$this->load->library('Mailer_class');
+    	parent::__construct();		
 		$this->load->model('Newsletter_model');
 		$this->load->model('Comments_model');
 		

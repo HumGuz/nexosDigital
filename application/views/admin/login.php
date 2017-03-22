@@ -22,7 +22,7 @@
 					                            <input type="password" name="key" id="key" class="form-control" placeholder="Contraseña">
 					                        </div>
 					                        <div class="checkbox">
-					                            <span class="character-checkbox" onclick="app.showPassword()"></span>
+					                            <span class="character-checkbox" onclick="login.showPassword()"></span>
 					                            <span class="label">Mostrar contraseña</span>
 					                        </div>
 					                        <button type="submit" class="btn btn-custom btn-lg btn-block" id="btn-login" > <span class="glyphicon glyphicon-log-in"> </span> Ingresar</button>

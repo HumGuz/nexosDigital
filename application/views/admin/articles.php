@@ -26,15 +26,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header" style="    margin: 5px 0 10px;">Articulos / Publicaciones</h1>
-                    <button style="margin-bottom: 10px" type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#nuevaN"> <span class="glyphicon glyphicon-plus-sign"></span> Nueva publicación</button>
+                    <button style="margin-bottom: 10px" type="button" class="btn btn-default btn-sm" id="nuevaNP" onclick="publicaciones.nuevaPublicacion({})"> <span class="glyphicon glyphicon-plus-sign"></span> Nueva publicación</button>
                 </div>
-            </div>           
-           <?php  
-		    if(!empty($articulos)){            
-		        ?>
-		             <table id="tbl_items-list" class="table table-bordered table-condensed fix" data-set-width="false" data-fixed="false" data-height="200" data-max-width="1300" style="font-size: 12px">
-		               <thead>
-		                <tr class="middle" align="center">
+            </div>
+           	<div class="portlet-body" style="font-size: 12px; padding: 0px; position: relative !important;">
+					<table id="tbl_items-list" class="table-condensed table-bordered" style="width: calc(100% - 16px)">
+						<thead>
+							<tr class="middle" align="center">
 		                	<td width="90px"><strong> Fecha </strong></td>    
 		                    <td width="200px"><strong> [ ID ] Titulo  </strong></td>
 		                    <td ><strong> Descripción </strong></td>
@@ -43,135 +41,33 @@
 		                    <td width="60px"><strong> Vistas </strong></td>        
 		                    <td width="100px"><span class="glyphicon glyphicon-cog">  </span></td>                            
 		                </tr>
-		              </thead>               
-		             <?php
-		               	include_once 'includes/tblArticles.php';  
-		             ?>
-		        </table>
-		<?php      
-		     }else{
-		        echo '<div class="alert alert-warning" role="alert"><strong><span class="glyphicon glyphicon-exclamation-sign"></span> No hay información para mostrar</strong>
-		                <br>
-		                <p style="font-size:12px">
-		                Compruebe lo siguiente:<br>
-		                - Comprueba que este modulo ya cuente con registros.<br>
-		                - Asegúrate de que todas las palabras en el filtro estén escritas correctamente.<br>
-		                </p>        
-		             </div>';
-		    }
-		?>
+						</thead>
+					</table>
+					<div id="articlesScroller" class="scroller-tbl" >
+						<table id="articlesContainer" class="table-bordered table-condensed table-striped " style=" margin:0px!important;width:100% ;">
+							<tbody>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<style>
+					.scroller-tbl {
+						overflow: hidden;
+						width: auto;
+						padding: 0px;
+						margin: 0px;
+						overflow-y: scroll;
+						height: calc(100% - 27px );
+					}					
+				</style>
         </div>
         <!-- /#page-wrapper -->
     </div>
-    <!-- /#wrapper -->
-    
-    <div id="nuevaN" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
-	  <div class="modal-dialog modal-lg" role="document">
-	    <div class="modal-content ">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title">Nueva publicación</h4>
-	      </div>
-	      <div class="modal-body">
-	       	<form id="nvaP-form">
-	       		
-	       		 <div class="form-group">
-				    <label class="control-label"  for="nombre">Titulo</label>
-				    <input type="text" class="form-control required" id="nombre" name="nombre">
-				 </div>
-	       		 
-	       		 <div class="form-group">
-				    <label class="control-label"  for="nombre">Descripción del contenido</label>
-				    <input type="text" class="form-control required" id="descripcion" name="descripcion">
-				 </div>			 
-				 
-				 <div class="row">				 	
-				 	<div class="col-sm-4">
-				 		<div class="form-group">
-						    <label class="control-label"  for="nombre">Fecha y hora de publicación</label>
-						    <input type="text" class="form-control required" id="fecha" name="fecha" style="text-align: center">
-						</div>
-				 	</div>
-				 	<div class="col-sm-4">
-				 		 <div class="form-group">
-						    <label class="control-label"  for="nombre">Categoría</label>
-						   <select class="form-control selectpicker required" data-live-search="true" data-container="body" id="id_categoria" name="id_categoria">
-						   		<option value="">-- seleccione --</option>
-						   		<?php							
-									if(!empty($categorias)){							
-										foreach ($categorias as $key => $c) {
-											echo ' <option value="'.$c['id_categoria'].'">[ '.$c['id_categoria'].' ] '.$c['nombre'].'</option>';
-										}						
-									}		
-								?> 
-						   </select>
-						 </div>
-				 	</div>
-				 	<div class="col-sm-4">
-				 		<div class="form-group">
-						    <label class="control-label"  for="nombre">Imagen [png,jpeg,jpg]</label>
-						    <input type="file" class="form-control" id="imagen" name="imagen" style="text-align: center">
-						</div>
-				 	</div>
-				 </div>
-	       		
-	       		
-	       		 <div class="row">				 	
-				 	<div class="col-sm-12" id="imgContainer">
-				 		
-				 		
-				 	</div>
-				 </div>
-	       		
-	       		
-	       		 <div class="form-group">
-				    <label class="control-label"  for="nombre">Tags</label>
-				    <input  class=" required" type="text" id="tags" name="tags" data-role="tagsinput">
-				 </div>
-				 
-	      	
-	       		 <div class="form-group">
-		       		<label for="resumen">Resumen de la publicación</label>
-		       		<textarea id="resumen" name="resumen" class="summernote required"></textarea>	       		
-	       		  </div>
-	       		 <div class="form-group">
-		       		<label for="content">Contenido de la publicación</label>
-		       		<textarea id="content" name="content" class="summernote required"></textarea>
-	       		</div>
-	       	 	</form> 	
-	      </div>
-	      <div class="modal-footer">
-	      	 <button type="submit" class="btn btn-success" id="btn-save" onclick="$('#nvaP-form').submit()"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
-    
-  
-<div id="preview" class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content ">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Vista previa de la publicación</h4>
-      </div>
-      <div class="modal-body">
-         <div class="single-page">
-			<div class="print-main">
-					
-					
-					
-			</div>
-		</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->    
+    <!-- /#wrapper -->   
+
 	<?php include_once 'includes/footer-scripts.php'; ?>
+	<script src="<?php echo base_url();?>application/views/js/publicaciones.js"></script>
 	 <script src="<?php echo base_url();?>application/third_party/summernote/summernote.min.js"></script>
      <link rel="stylesheet" href="<?php echo base_url();?>application/third_party/summernote/summernote.css">
      <script src="<?php echo base_url();?>application/third_party/bootstrap-select/js/bootstrap-select.min.js"></script>
@@ -184,6 +80,7 @@
 	 <link href="<?php echo base_url();?>application/third_party/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
      <script>
      	admin.init();
+     	publicaciones.init();
      </script>
      <style>
      	.bootstrap-tagsinput{

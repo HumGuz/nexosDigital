@@ -1,0 +1,1 @@
+<p>este es el resumen <span style="background-color: rgb(255, 255, 0);">no tiene que haber problemas</span>&nbsp; &nbsp; porque de aqui en delante <b>se guardara como se ponga</b>&nbsp;&nbsp;&nbsp;&nbsp;</p>

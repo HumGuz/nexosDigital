@@ -10,14 +10,14 @@
                         <td  align="right" width="60px"><strong>'.$a['views_count'].'</strong></td>
                         <td   align="center" width="100px" align="center" style="padding:0px">
 							<div class="btn-group btn-group-xs">
-							  <button type="button" class="btn btn-info" onclick="admin.preview({id_articulo:'.$a['id_articulo'].'})"><span class="glyphicon glyphicon-exclamation-sign"></span> Ver</button>
+							  <button type="button" class="btn btn-info" onclick="publicaciones.preview({id_articulo:'.$a['id_articulo'].'})"><span class="glyphicon glyphicon-exclamation-sign"></span> Ver</button>
 							  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							    <span class="caret"></span>
 							    <span class="sr-only">Toggle Dropdown</span>
 							  </button>
 							  <ul class="dropdown-menu pull-right">
-							    <li><a href="#" onclick="admin.editarArticulo({id_articulo:'.$a['id_articulo'].'})"><span class="glyphicon glyphicon-pencil"></span> Editar</a></li>
-							    <li><a href="#" onclick="admin.borrarArticulo({id_articulo:'.$a['id_articulo'].'})"><span class="glyphicon glyphicon-trash"></span> Borrar</a></li>
+							    <li><a href="#" onclick="publicaciones.nuevaPublicacion({id_articulo:'.$a['id_articulo'].'})"><span class="glyphicon glyphicon-pencil"></span> Editar</a></li>
+							    <li><a href="#" onclick="publicaciones.borrarArticulo({id_articulo:'.$a['id_articulo'].'})"><span class="glyphicon glyphicon-trash"></span> Borrar</a></li>
 							    <li><a href="#" class="togle" data-col="comments"  data-id_articulo="'.$a['id_articulo'].'">'.(($a['comments'])?'Desactivar comentarios':'Activar comentarios').'</a></li>
 							  </ul>
 							</div>

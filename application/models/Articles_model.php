@@ -1,10 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Articles_model extends CI_Model {
+		public $path;
 		public function __construct(){
 			date_default_timezone_set("America/Mexico_City");
 	    	parent::__construct();
 			$this->load->library('app');
+			$this->load->helper('file');	
+			$this->path = 'C:/xamp/xampp/htdocs/nexosDigital/application/views/articles/';
+	  	 // $this->path = '/homepages/13/d656598473/htdocs/nexosDigital/application/views/articles/';	
 	    }	
 		
 		function listArticles($data=''){
@@ -36,14 +40,15 @@ class Articles_model extends CI_Model {
 									 where a.status =1 ".$condition." ".$limit);			
 			$result =  $res->result_array();
 			if(!empty($result)){
-				foreach ($result as $key => $r) {					
+				foreach ($result as $key => $r) {
+						$resument = read_file($this->path.$r['resumen']);					
 						$pop .= '			
 							<div class="article">
 								'.(($key==0)?'<h5 class="head">En noticias recientes</h5>':'').'
 								<h6>'.$r['categoria'].'</h6>
 								<a class="title" href="'.base_url().$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'" >'.$r['nombre'].'</a>
 								<a href="'.base_url().$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'"><img src="'.(app::encodeImg(base_url().'application/views/images/'.$r['imagen'])).'" alt="" /></a>
-								'.$r['resumen'].'
+								'.$resument.'
 							</div>
 						';
 				}
@@ -77,24 +82,35 @@ class Articles_model extends CI_Model {
 					if($paginas>=2){
 						$paginator .= '<div class="paginator">
 											<ul class="pager">';
-						if($page>1)
+						if($page>1 && $paginas>=6)
 							$paginator .= '  <li><a href="'.$base_url.($page-1).'" class="btn "><span class="glyphicon glyphicon-chevron-left"></span> Anterior</a></li>';
-						if($page!=$paginas)	
+						if($page!=$paginas && $paginas>=6)	
 							$paginator .= '   <li><a href="'.$base_url.($page+1).'" class="btn ">Siguiente <span class="glyphicon glyphicon-chevron-right"></span> </a></li> ';
 						$paginator .= '</ul>
 									<nav aria-label="Page navigation" id="div1">
 										<ul class="pager">	';
-								if($page>1)
+								if($page>1  && $paginas>=6)
 									$paginator .= '<li><a href="'.$base_url_clean.'" class="btn ">« 1 ...</a></li>';	
-								$page =  $page==0 ? 1 : $page ;								
-								$paginator .= '<li><a href="#" class="btn disabled">'.$page.'</a></li>';	
-								$page ++;		
-								for ($i=0; ($i < 5 && $i < $paginasFaltantes ); $i++) { 									
-									$paginator .= '<li><a href="'.$base_url.($page).'" class="btn ">'.$page.'</a></li>';									
-									$page ++;		
-								}								
-								if($paginas>5)
-								$paginator .= '<li><a href="'.$base_url.($paginas).'" class="btn ">... '.$paginas.' »</a></li>';								
+								$page =  $page==0 ? 1 : $page ;	
+								$pageNow = $page;
+								if($paginasFaltantes>=6){
+									$paginator .= '<li><a href="#" class="btn disabled">'.$page.'</a></li>';	
+									$page ++;
+									for ($i=0; ($i < 4 && $i < $paginasFaltantes ); $i++) { 									
+										$paginator .= '<li><a href="'.$base_url.($page).'" class="btn ">'.$page.'</a></li>';									
+										$page ++;
+									}								
+									if(($page - $paginasFaltantes)>1)
+										$paginator .= '<li><a href="'.$base_url.($paginas).'" class="btn ">... '.$paginas.' »</a></li>';
+								}else{																		
+									$page = ( $paginas - 5 > 0 ? $paginas - 5 : 1 );					
+									for($i= $paginas; $i>($paginas - 5 ) && $page <= $paginas;$i--){
+										$paginator .= '<li><a href="'.$base_url.($page).'" class="btn '.($pageNow == $page?'disabled':'').'">'.$page.'</a></li>';									
+										$page ++;
+									}
+									if(($i==($paginas - 5 )))
+										$paginator .= '<li><a href="'.$base_url.($paginas).'" class="btn '.($pageNow == $page?'disabled':'').' ">... '.$paginas.' »</a></li>';
+								}							
 								$paginator .="</ul></nav></div>";
 					}
 				}				
@@ -125,6 +141,9 @@ class Articles_model extends CI_Model {
 					}
 					$t .= ' | ';
 				}
+				
+				$content = read_file($this->path.$r['content']);
+				
 				return array('article'=>
 				 '	<h3>'.$r['categoria'].'</h3>
 					<a '.$data['target'].' href="'.base_url().$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'" >'.$r['nombre'].'</a>
@@ -132,7 +151,7 @@ class Articles_model extends CI_Model {
 					<a '.$data['target'].' href="'.base_url().$r['id_articulo'].'/'.(app::poner_guion($r['nombre'])).'"><img src="'.(app::encodeImg(base_url().'application/views/images/'.$r['imagen'])).'" class="img-responsive" alt="" /></a>
 					<p class="span"> '.$t.'   el '.(app::dateFormat($r['fecha'],5)).'</p>
 				 	<div class="article-content">
-				 		'.$r['content'].'
+				 		'.$content.'
 				 	</div>
 				 ','info'=>$r);
 				
@@ -208,14 +227,35 @@ class Articles_model extends CI_Model {
 	   
 	  function guardarArticulo($data){	  	
 	  	unset($data['request']);	
+	  	$code = $this->getCode();	  	
+	  	$content = 'content-'.$code.'.txt';
+	  	$resumen = 'resumen-'.$code.'.txt';	  	
+	  	if(!write_file($this->path.$content,$data['content'],'x'))
+				return array('status'=>2,'file'=>$content);
+	  	if(!write_file($this->path.$resumen,$data['resumen'],'x'))
+				return array('status'=>2,'file'=>$resumen);
+		$data['content'] = $content;
+		$data['resumen'] = $resumen;
 	  	if(empty($data['id_articulo'])){
             $this->db->insert('t_articulos', $data);
         }else{
             $this->db->where('id_articulo', $data['id_articulo']);
 			unset($data['id_articulo']);
             $this->db->update('t_articulos', $data);
-        }
+        }		
+		return array('status'=>1);
 	  }
+	  
+	  function getCode($length = 10) {
+	    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	    $charactersLength = strlen($characters);
+		    $randomString = '';
+		    for ($i = 0; $i < $length; $i++) {
+		        $randomString .= $characters[rand(0, $charactersLength - 1)];
+		    }
+		    return $randomString;
+	 }
+	  
 
 	  function deleteArticulo($data){ 
     		return $this->db->delete('t_articulos', $data);

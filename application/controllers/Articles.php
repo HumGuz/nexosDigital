@@ -22,17 +22,33 @@ class Articles extends CI_Controller {
 						 );
 		}				
 	}	
-	public function getArticle(){
-		$data = $this->input->post();
-		$data['admin'] = 1;
-		$res = $this->articles_model->getArticle($data);
-		// print_r($data);
-		echo $res['article'];
-	}
+	
 	public function updateOption(){
 		$data = $this->input->post();
 		$res = $this->articles_model->updateOption($data);
 		echo json_encode($res);
+	}
+	
+	function nuevaPublicacion(){
+			$data = $this->input->post();			
+			$categorias = $this->articles_model->getCategorias(); 	
+			if($data['id_articulo'])
+				$articleData = $this->articles_model->getArticulo($data);
+			$nueva = $this->load->view('admin/includes/nuevaPublicacion',array('post'=>$data,'categorias'=>$categorias,'article'=>$articleData),TRUE);			
+			echo $nueva;	
+	}
+	
+	public function getArticlePreview(){
+		$data = $this->input->post();
+		$data['admin'] = 1;		
+		$article =$this->articles_model->getArticle($data); 			
+		$nueva = $this->load->view('admin/includes/articlePreview',array('article'=>$article['article']),TRUE);			
+		echo $nueva;	
+	}
+	public function getArticlesTable(){
+		$data = $this->input->post();
+		$tabla = $this->load->view('admin/includes/tblArticles',array('articulos'=>$this->articles_model->listArticles($data)),TRUE);			
+		echo $tabla;
 	}
 	public function guardarArticulo(){
 		$data = $this->input->post();	
@@ -52,13 +68,7 @@ class Articles extends CI_Controller {
 			$result = $this->articles_model->deleteArticulo($data);
 			echo json_encode(array('status'=>1));		
 	 }
-	 
-	 public function getArticulo(){
-		$data = $this->input->post();		
-		$res = $this->articles_model->getArticulo($data);
-		echo json_encode($res);
-	}
-	 
+	
 	 // categorias 
 	 public function guardarCategoria(){
 		$data = $this->input->post();	

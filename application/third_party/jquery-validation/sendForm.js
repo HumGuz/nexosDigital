@@ -115,8 +115,7 @@
 			invalidHandler : options.invalidHandler,
 			showErrors: options.showErrors,
 			showLabel:options.showLabel
-		};	
-		$(this).validate(validateConfig);
-		return $(this);
+		};			
+		return $(this).validate(validateConfig);
 	}
 })(jQuery);

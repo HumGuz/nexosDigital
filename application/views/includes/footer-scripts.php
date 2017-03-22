@@ -1,6 +1,6 @@
 <!-- <script src="<?php echo base_url();?>application/views/js/jquery.min.js"></script> -->
 <script>
-	base_url = 'http://localhost/nexosDigital/';
+	base_url = '<?php echo base_url();?>';
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" ></script>
 <!-- Latest compiled and minified JavaScript -->

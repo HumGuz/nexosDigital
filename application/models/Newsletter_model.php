@@ -102,4 +102,9 @@ class Newsletter_model extends CI_Model {
 	function replace($str){
 		return str_replace(array('á','é','í','ó','ú','Á','É','Í','Ó','Ú'), array('&aacute;','&eacute;','&iacute;','&oacute;','&uacute;','&Aacute;','&Eacute;','&Iacute;','&Oacute;','&Uacute;'), $str);
 	}
+
+
+	  function deleteSubscriptor($data){ 
+    		return $this->db->delete('t_newsletter_subscribers', $data);
+	  }
 }

@@ -89,8 +89,9 @@
 	</div><!-- /.modal -->
    
 	<?php include_once 'includes/footer-scripts.php'; ?>
+	<script src="<?php echo base_url();?>application/views/js/categorias.js"></script>
      <script>
-     	admin.initCat();
+     	categorias.initCat();
      </script>
      
 </html>

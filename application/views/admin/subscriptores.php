@@ -57,7 +57,8 @@
     </div>
     <!-- /#wrapper -->
 	<?php include_once 'includes/footer-scripts.php'; ?>
+	<script src="<?php echo base_url();?>application/views/js/subscriptores.js"></script>
      <script>
-     	admin.initSub();
+     	subscriptores.initSub();
      </script>     
 </html>

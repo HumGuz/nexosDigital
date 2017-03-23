@@ -7,7 +7,7 @@ class Articles_model extends CI_Model {
 	    	parent::__construct();
 			$this->load->library('app');
 			$this->load->helper('file');	
-			$this->path = 'C:/xamp/xampp/htdocs/nexosDigital/application/views/articles/';
+			$this->path = 'C:/xampp/htdocs/nexosDigital/application/views/articles/';
 	  	 // $this->path = '/homepages/13/d656598473/htdocs/nexosDigital/application/views/articles/';	
 	    }	
 		
@@ -37,7 +37,7 @@ class Articles_model extends CI_Model {
 									 from t_articulos a 
 									 inner join t_categorias c on c.id_categoria = a.id_categoria 
 									 inner join t_admin u on u.id_admin = a.user 									 
-									 where a.status =1 ".$condition." ".$limit);			
+									 where a.status =1 and a.fecha <= curdate()  ".$condition." ".$limit);			
 			$result =  $res->result_array();
 			if(!empty($result)){
 				foreach ($result as $key => $r) {

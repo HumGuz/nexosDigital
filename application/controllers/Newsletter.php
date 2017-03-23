@@ -31,6 +31,14 @@ class Newsletter extends CI_Controller {
 		$res = $this->Comments_model->guardarComentario($data);	
 		echo json_encode($res);		
 	}
+	
+	function deleteSubscriptor(){
+			$data = $this->input->post();
+			unset($data['request']);
+			$result = $this->Newsletter_model->deleteSubscriptor($data);
+			echo json_encode(array('status'=>1));	
+	}
+
 
 }
 

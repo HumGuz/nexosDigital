@@ -27,4 +27,5 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/mensajes',array('mensajes'=>$this->Comments_model->getMensajes()) );
 	}
 	
+	
 }

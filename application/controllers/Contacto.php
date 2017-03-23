@@ -31,4 +31,7 @@ class Contacto extends CI_Controller {
 		$res = $this->Comments_model->guardarComentarios($data);	
 		echo json_encode($res);		
 	}
+	function gracias(){
+		$this->load->view('gracias');	
+	}
 }
